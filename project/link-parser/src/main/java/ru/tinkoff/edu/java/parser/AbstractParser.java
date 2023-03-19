@@ -2,15 +2,14 @@ package ru.tinkoff.edu.java.parser;
 
 
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 
-public abstract class GenericParser implements ParserInterface{
+public abstract class AbstractParser implements ParserInterface{
 
     @Override
     public @Nullable
-    TypesOfParsers parse(String url) {
+    ParseResult parse(String url) {
         if(!isValid(url)){
             return null;
         }
@@ -22,7 +21,8 @@ public abstract class GenericParser implements ParserInterface{
 
 
     }
-    protected abstract @Nullable TypesOfParsers parseUrl(String[] splitUrl);
+    protected abstract @Nullable
+    ParseResult parseUrl(String[] splitUrl);
 
     private boolean isValid(String url) {
         try {
