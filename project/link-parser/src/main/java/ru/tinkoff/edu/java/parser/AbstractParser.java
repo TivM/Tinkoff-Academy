@@ -9,8 +9,7 @@ import java.net.URL;
 public abstract class AbstractParser implements ParserInterface{
 
     @Override
-    public @Nullable
-    ParseResult parse(String url) {
+    public @Nullable ParseResult parse(String url) {
         if(!isValid(url)){
             return null;
         }
