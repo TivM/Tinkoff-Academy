@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.parser.results;
+package ru.tinkoff.edu.java.parser.parseresult;
 
 public sealed interface ParseResult {
     record GitHubUserRepository(String userName, String repository) implements ParseResult {}

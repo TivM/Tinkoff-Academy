@@ -2,7 +2,7 @@ package ru.tinkoff.edu.java.parser;
 
 
 import org.springframework.lang.Nullable;
-import ru.tinkoff.edu.java.parser.results.ParseResult;
+import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 
 import java.net.URL;
 
