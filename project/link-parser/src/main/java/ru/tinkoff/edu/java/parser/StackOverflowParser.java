@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.parser;
 
 import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.parser.results.ParseResult;
 
 import java.util.Objects;
 

@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.parser;
 
 
 import org.springframework.lang.Nullable;
+import ru.tinkoff.edu.java.parser.results.ParseResult;
 
 import java.net.URL;
 
@@ -14,15 +15,12 @@ public abstract class AbstractParser implements ParserInterface{
             return null;
         }
 
-        else{
-            String urlForSplit = url.replaceAll("//", "/");
-            return parseUrl(urlForSplit.split("/"));
-        }
+        String urlForSplit = url.replaceAll("//", "/");
+        return parseUrl(urlForSplit.split("/"));
 
 
     }
-    protected abstract @Nullable
-    ParseResult parseUrl(String[] splitUrl);
+    protected abstract @Nullable ParseResult parseUrl(String[] splitUrl);
 
     private boolean isValid(String url) {
         try {
