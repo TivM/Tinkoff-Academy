@@ -1,2 +1,20 @@
 app:
   test: This is SCRAPPER ApplicationConfig!
+
+  scheduler:
+    interval: 5000
+
+  github:
+    url:
+      base: https://api.github.com/repos/
+
+  stackoverflow:
+    url:
+      base: https://api.stackexchange.com/2.3/questions/
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+
