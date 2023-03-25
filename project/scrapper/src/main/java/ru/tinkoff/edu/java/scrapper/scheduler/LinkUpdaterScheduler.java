@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.backgroundtask;
+package ru.tinkoff.edu.java.scrapper.scheduler;
 
 
 import lombok.extern.slf4j.Slf4j;
