@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.exception;
+package ru.tinkoff.edu.java.bot.exception;
 
 public class IncorrectRequestParameterException extends RuntimeException{
 

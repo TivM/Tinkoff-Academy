@@ -41,13 +41,13 @@ public class ClientConfig {
 
     @Bean
     public GitHubClient gitHubWebClient(WebClient webClient,
-                                        @Value("${app.github.url.base}") String baseUrl){
+                                        @Value("${github.url.base}") String baseUrl){
         return new GitHubWebClient(webClient, baseUrl);
     }
 
     @Bean
     public StackOverflowClient stackOverflowWebClient(WebClient webClient,
-                                                      @Value("${app.stackoverflow.url.base}") String baseUrl){
+                                                      @Value("${stackoverflow.url.base}") String baseUrl){
         return new StackOverflowWebClient(webClient, baseUrl);
     }
 

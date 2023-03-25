@@ -8,9 +8,8 @@ import org.openapitools.model.ListLinksResponse;
 import org.openapitools.model.RemoveLinkRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-
-import java.net.URI;
+import ru.tinkoff.edu.java.scrapper.exception.IncorrectRequestParameterException;
+import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 
 @RestController
 public class LinkController implements LinksApi {
@@ -18,12 +17,14 @@ public class LinkController implements LinksApi {
 
     @Override
     public ResponseEntity<LinkResponse> linksDelete(Long tgChatId, RemoveLinkRequest removeLinkRequest) {
-        return LinksApi.super.linksDelete(tgChatId, removeLinkRequest);
+        //return LinksApi.super.linksDelete(tgChatId, removeLinkRequest);
+        throw new ResourceNotFoundException("not exists");
     }
 
     @Override
     public ResponseEntity<ListLinksResponse> linksGet(Long tgChatId) {
-        return LinksApi.super.linksGet(tgChatId);
+        //return LinksApi.super.linksGet(tgChatId);
+        throw new IncorrectRequestParameterException("some message...");
     }
 
     @Override
