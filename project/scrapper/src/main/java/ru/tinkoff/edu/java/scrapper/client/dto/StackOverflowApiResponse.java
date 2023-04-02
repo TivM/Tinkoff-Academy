@@ -5,5 +5,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public record StackOverflowApiResponse(
-        @JsonProperty("items") List<StackOverflowItemApiResponse> item
+        @JsonProperty("items") List<StackOverflowItemApiResponse> items
 ) {}

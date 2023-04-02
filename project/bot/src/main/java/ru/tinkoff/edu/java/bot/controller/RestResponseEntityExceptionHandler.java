@@ -23,22 +23,36 @@ public class RestResponseEntityExceptionHandler extends
                                                                   HttpHeaders headers,
                                                                   HttpStatusCode status,
                                                                   WebRequest request) {
-        ApiErrorResponse response = new ApiErrorResponse();
-        response.setDescription("Incorrect JSON");
-        response.setCode(String.valueOf(HttpStatus.BAD_REQUEST));
-        response.setExceptionName(ex.getClass().getName());
-        response.exceptionMessage(ex.getMessage());
-        response.setStacktrace(ex.getStackTrace());
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .description("Incorrect JSON")
+                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .exceptionName(ex.getClass().getName())
+                .exceptionMessage(ex.getMessage())
+                .stacktrace(ex.getStackTrace())
+                .build();
         return new ResponseEntity<>(response, status);
     }
 
     @ExceptionHandler({IncorrectRequestParameterException.class,})
     public ResponseEntity<Object> handleIncorrectRequestParameterException(IncorrectRequestParameterException ex) {
-        ApiErrorResponse response = new ApiErrorResponse();
-        response.setDescription("Incorrect request parameter");
-        response.setCode(String.valueOf(HttpStatus.NOT_FOUND.value()));
-        response.setExceptionName(ex.getClass().getName());
-        response.exceptionMessage(ex.getMessage());
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .description("Incorrect request parameter")
+                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .exceptionName(ex.getClass().getName())
+                .exceptionMessage(ex.getMessage())
+                .stacktrace(ex.getStackTrace())
+                .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+
+//    private ResponseEntity<Object> createError(String description, Exception exception, String code) {
+//        ApiErrorResponse response = new ApiErrorResponse();
+//        response.setDescription(description);
+//        response.setCode(code);
+//        response.setExceptionName(exception.getClass().getName());
+//        response.setExceptionMessage(exception.getMessage());
+//        exception.setStackTrace(exception.getStackTrace());
+//
+//    }
 }
