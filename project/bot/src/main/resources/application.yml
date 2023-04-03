@@ -4,6 +4,9 @@ app:
   bot:
     apiKey: ${BOT_API_KEY}
 
+server:
+  port: 8081
+
 springdoc:
   swagger-ui:
     path: /swagger-ui

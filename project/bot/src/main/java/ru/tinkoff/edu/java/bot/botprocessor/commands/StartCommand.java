@@ -1,15 +1,16 @@
-package ru.tinkoff.edu.java.bot.botprocessor;
+package ru.tinkoff.edu.java.bot.botprocessor.commands;
 
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.bot.botprocessor.CommandInterface;
 import ru.tinkoff.edu.java.bot.botprocessor.messagesender.MessageSender;
 
 @Component
 @RequiredArgsConstructor
-public class StartCommand implements CommandInterface{
+public class StartCommand implements CommandInterface {
     private final MessageSender messageSender;
 
     @Override

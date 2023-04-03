@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class BotUpdatesDispatcher implements UpdatesListener {
-    static String MESSAGE = "I don't have this command. Use /help to see all my commands";
+    private static final String MESSAGE = "I don't have this command. Use /help to see all my commands";
 
     private final TelegramBot bot;
 

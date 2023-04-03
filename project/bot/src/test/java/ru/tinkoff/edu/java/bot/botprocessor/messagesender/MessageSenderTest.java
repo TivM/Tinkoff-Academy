@@ -12,21 +12,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.util.ReflectionTestUtils;
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,10 +39,6 @@ public class MessageSenderTest {
                 .getResource("templates")
                 .getFile()
         );
-        log.info(MessageSender.class
-                .getClassLoader()
-                .getResource("templates")
-                .getFile());
 
 
         templateResolver.setDefaultEncoding("UTF-8");
@@ -75,18 +63,6 @@ public class MessageSenderTest {
         //then
         Object text = message.getParameters().get("text");
 
-//        assertThat(text).isEqualTo("""
-//                <b>Your links:</b>
-//                %s
-//
-//
-//                """
-//                .formatted(links
-//                        .stream()
-//                        .map(link -> "<a href=\"%s\">%s</a>".formatted(link.url(), link.url()))
-//                        .collect(Collectors.joining("\n"))
-//                )
-//        );
         assertThat(text).isEqualTo("""
               <b>Your links:</b>
                   <a href="https://github.com/">https://github.com/</a>

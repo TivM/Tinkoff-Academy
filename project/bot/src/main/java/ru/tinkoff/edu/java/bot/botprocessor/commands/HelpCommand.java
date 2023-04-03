@@ -1,10 +1,11 @@
-package ru.tinkoff.edu.java.bot.botprocessor;
+package ru.tinkoff.edu.java.bot.botprocessor.commands;
 
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.bot.botprocessor.CommandInterface;
 import ru.tinkoff.edu.java.bot.botprocessor.messagesender.MessageSender;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class HelpCommand implements CommandInterface{
+public class HelpCommand implements CommandInterface {
     private final List<CommandInterface> commands;
     private final MessageSender messageSender;
 
