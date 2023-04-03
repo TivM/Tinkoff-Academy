@@ -34,16 +34,15 @@ public class MessageSenderTest {
     static void setUp() {
         templateResolver = new Configuration(Configuration.VERSION_2_3_31);
 
-        File templatesDir = new File(MessageSender.class
-                .getClassLoader()
-                .getResource("templates")
-                .getFile()
-        );
-
+//        File templatesDir = new File(MessageSender.class
+//                .getClassLoader()
+//                .getResource("templates")
+//                .getFile()
+//        );
+        File templatesDir = new File("src/test/resources/templates");
 
         templateResolver.setDefaultEncoding("UTF-8");
         templateResolver.setDirectoryForTemplateLoading(templatesDir);
-        //templateResolver.setDefaultEncoding("UTF-8");
     }
 
 
@@ -64,10 +63,10 @@ public class MessageSenderTest {
         Object text = message.getParameters().get("text");
 
         assertThat(text).isEqualTo("""
-              <b>Your links:</b>
-                  <a href="https://github.com/">https://github.com/</a>
-                  <a href="https://stackoverflow.com/">https://stackoverflow.com/</a>
-              """);
+             <b>Your links:</b>
+                 <a href="https://github.com/">https://github.com/</a>
+                 <a href="https://stackoverflow.com/">https://stackoverflow.com/</a>
+             """);
 
 
     }

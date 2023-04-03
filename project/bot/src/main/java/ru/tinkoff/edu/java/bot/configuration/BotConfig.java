@@ -15,12 +15,13 @@ public class BotConfig {
     private final ApplicationConfig applicationConfig;
 
     @Bean
-    TelegramBot telegramBot(CommandProcessor commandFacade) {
+    TelegramBot telegramBot(CommandProcessor commandProcessor) {
         TelegramBot bot = new TelegramBot(applicationConfig.bot().apiKey());
 
-        var botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandFacade);
+        var botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandProcessor);
         bot.setUpdatesListener(botUpdatesDispatcher);
 
+        //bot.execute(new SetMyCommands(botUpdatesDispatcher.getCommands().toArray(new BotCommand[0])));
         bot.execute(new SetMyCommands(botUpdatesDispatcher.getCommands().toArray(new BotCommand[0])));
 
         return bot;
