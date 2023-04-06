@@ -6,8 +6,8 @@ import com.pengrad.telegrambot.request.SetMyCommands;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.tinkoff.edu.java.bot.botprocessor.BotUpdatesDispatcher;
-import ru.tinkoff.edu.java.bot.botprocessor.CommandProcessor;
+import ru.tinkoff.edu.java.bot.processor.BotUpdatesDispatcher;
+import ru.tinkoff.edu.java.bot.processor.CommandProcessor;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,7 +21,6 @@ public class BotConfig {
         var botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandProcessor);
         bot.setUpdatesListener(botUpdatesDispatcher);
 
-        //bot.execute(new SetMyCommands(botUpdatesDispatcher.getCommands().toArray(new BotCommand[0])));
         bot.execute(new SetMyCommands(botUpdatesDispatcher.getCommands().toArray(new BotCommand[0])));
 
         return bot;

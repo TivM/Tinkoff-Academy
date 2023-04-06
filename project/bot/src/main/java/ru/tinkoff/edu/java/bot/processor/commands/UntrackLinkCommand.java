@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.botprocessor.commands;
+package ru.tinkoff.edu.java.bot.processor.commands;
 
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Message;
@@ -8,8 +8,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.botprocessor.CommandInterface;
-import ru.tinkoff.edu.java.bot.botprocessor.messagesender.MessageSender;
+import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 import ru.tinkoff.edu.java.bot.service.LinkService;
 

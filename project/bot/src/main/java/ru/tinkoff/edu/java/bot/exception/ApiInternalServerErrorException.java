@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.client.exception;
+package ru.tinkoff.edu.java.bot.exception;
 
 import org.openapitools.model.ApiErrorResponse;
 

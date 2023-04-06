@@ -1,11 +1,8 @@
-package ru.tinkoff.edu.java.bot.botprocessor;
+package ru.tinkoff.edu.java.bot.processor.commands;
 
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendAnimation;
 import com.pengrad.telegrambot.request.SendMessage;
-
-import java.util.Objects;
 
 public interface CommandInterface {
     String command();

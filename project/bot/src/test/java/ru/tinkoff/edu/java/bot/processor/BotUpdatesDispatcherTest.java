@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.botprocessor;
+package ru.tinkoff.edu.java.bot.processor;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Chat;
