@@ -14,7 +14,7 @@ public class MigrationTest extends IntegrationEnvironment{
             //given
         try (var connection = DB_CONTAINER.createConnection("")){
             var preparedStatementForUpdate = connection.prepareStatement
-                    ("INSERT INTO tg_chat(created_at, created_by) VALUES (now(), 'Vlad')");
+                    ("INSERT INTO tg_chat(id, created_at, created_by) VALUES (1, now(), 'Vlad')");
 
             var preparedStatementForQuery = connection.prepareStatement("SELECT * FROM tg_chat");
 
@@ -25,7 +25,6 @@ public class MigrationTest extends IntegrationEnvironment{
             resultQuery.next();
 
             //then
-
             assertAll(
                     () -> assertEquals(1, resultUpdate),
                     () -> assertEquals("Vlad", resultQuery.getString("created_by"))
