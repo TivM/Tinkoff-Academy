@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class MessageSenderTest {
     static Configuration templateResolver;
-    MessageSender messageSender = new MessageSender(templateResolver);
+    MessageSenderImpl messageSender = new MessageSenderImpl(templateResolver);
 
 
     @BeforeAll

@@ -8,9 +8,9 @@ import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
+import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
-import ru.tinkoff.edu.java.bot.service.LinkService;
+import ru.tinkoff.edu.java.bot.service.LinkServiceImpl;
 
 import java.util.Optional;
 
@@ -21,8 +21,8 @@ public class TrackLinkCommand implements CommandInterface {
     private static final String TRACK_REPLY = "Enter the link you want to track:";
     private static final String TRACK_REPLY_ERROR = "The link was entered incorrectly, try again:";
 
-    private final MessageSender messageSender;
-    private final LinkService linkService;
+    private final MessageSenderImpl messageSender;
+    private final LinkServiceImpl linkService;
 
     @Override
     public String command() {

@@ -12,5 +12,6 @@
 
     <include file="2023-04-05-CRS-1_create_link_table.sql"/>
     <include file="2023-04-05-CRS-2_create_tg-chat_table.sql"/>
-    <include file="2023-04-05-CRS-3_create_chat-link_table.sql"/>
+    <include file="2023-04-05-CRS-3_create_subscription_table.sql"/>
+    <include file="2023-04-16-CRS-4_add_updates_count_column-link.sql"/>
 </databaseChangeLog>

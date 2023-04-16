@@ -10,8 +10,10 @@ import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
+import ru.tinkoff.edu.java.scrapper.client.api.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.api.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.api.StackOverflowClient;
+import ru.tinkoff.edu.java.scrapper.client.webclient.BotWebClient;
 import ru.tinkoff.edu.java.scrapper.client.webclient.GitHubWebClient;
 import ru.tinkoff.edu.java.scrapper.client.webclient.StackOverflowWebClient;
 
@@ -49,6 +51,12 @@ public class ClientConfig {
     public StackOverflowClient stackOverflowWebClient(WebClient webClient,
                                                       @Value("${stackoverflow.url.base}") String baseUrl){
         return new StackOverflowWebClient(webClient, baseUrl);
+    }
+
+    @Bean
+    BotClient botWebClient(WebClient webClient,
+                           @Value("${bot.url.base}") String baseUrl){
+        return new BotWebClient(webClient, baseUrl);
     }
 
 }

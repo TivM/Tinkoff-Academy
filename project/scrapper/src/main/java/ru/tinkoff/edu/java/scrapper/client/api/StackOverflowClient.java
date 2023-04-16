@@ -6,6 +6,6 @@ import ru.tinkoff.edu.java.scrapper.client.dto.StackOverflowItemApiResponse;
 
 public interface StackOverflowClient {
 
-    StackOverflowApiResponse fetchQuestion(long id);
+    StackOverflowApiResponse fetchQuestion(String id);
 
 }

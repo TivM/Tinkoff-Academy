@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import ru.tinkoff.edu.java.bot.processor.commands.GetListLinksCommand;
-import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
+import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
-import ru.tinkoff.edu.java.bot.service.LinkService;
+import ru.tinkoff.edu.java.bot.service.LinkServiceImpl;
 
 import java.net.URI;
 import java.util.List;
@@ -26,10 +26,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GetListOfLinksCommandTest {
 
     @Mock
-    private MessageSender messageSender;
+    private MessageSenderImpl messageSender;
 
     @Mock
-    private LinkService linkService;
+    private LinkServiceImpl linkService;
 
     @InjectMocks
     GetListLinksCommand getListLinksCommand;

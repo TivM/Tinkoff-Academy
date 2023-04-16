@@ -28,7 +28,7 @@ public class ScrapperWebClient implements ScrapperClient {
 
     public ScrapperWebClient(WebClient webClient) {
         this.webClient = webClient;
-        baseUrl = BASE_URL;
+        this.baseUrl = BASE_URL;
     }
 
     public ScrapperWebClient(String baseUrl, WebClient webClient) {

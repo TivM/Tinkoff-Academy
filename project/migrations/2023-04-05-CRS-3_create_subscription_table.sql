@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
 --changeset v.trofimchenko:add-chat_link-table
-create table if not exists chat_link (
+create table if not exists subscription (
     tg_chat_id  bigint  not null,
     link_id     bigint  not null,
 

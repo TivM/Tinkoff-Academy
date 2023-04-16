@@ -27,7 +27,7 @@ public class StackOverflowWebClient implements StackOverflowClient {
 
     //return List<StackOverflowApiResponse>
     @Override
-    public StackOverflowApiResponse fetchQuestion(long id) {
+    public StackOverflowApiResponse fetchQuestion(String id) {
         return webClient
                 .get()
                 .uri(baseUrl + id + STACKOVERFLOW_MANDATORY_REQUEST_PARAMS)

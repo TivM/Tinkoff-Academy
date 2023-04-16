@@ -5,7 +5,7 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
+import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HelpCommand implements CommandInterface {
     private final List<CommandInterface> commands;
-    private final MessageSender messageSender;
+    private final MessageSenderImpl messageSender;
 
 
     @Override

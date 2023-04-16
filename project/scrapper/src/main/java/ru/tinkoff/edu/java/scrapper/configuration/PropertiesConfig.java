@@ -10,4 +10,6 @@ public class PropertiesConfig {
     public long schedulerIntervalMs(ApplicationConfig config){
         return config.scheduler().interval().toMillis();
     }
+
+
 }
