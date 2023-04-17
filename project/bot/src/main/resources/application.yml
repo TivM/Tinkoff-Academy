@@ -1,0 +1,12 @@
+app:
+  test: This is BOT ApplicationConfig!
+
+  bot:
+    apiKey: ${BOT_API_KEY}
+
+server:
+  port: 8081
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
