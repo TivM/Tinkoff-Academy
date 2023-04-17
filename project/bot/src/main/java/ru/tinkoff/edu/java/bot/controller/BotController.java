@@ -27,11 +27,9 @@ public class BotController implements UpdatesApi {
 
     @Override
     public ResponseEntity<Void> updatesPost(LinkUpdateRequest linkUpdateRequest) {
-        log.info(linkUpdateRequest.getDescription());
         alertUpdatesService.alertUpdates(linkUpdateRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 
 

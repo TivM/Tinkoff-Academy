@@ -80,5 +80,4 @@ public class LinkController implements LinksApi {
                 .size(linksToResponse.size())
                 .build();
     }
-
 }

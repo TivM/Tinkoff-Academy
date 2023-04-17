@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.parser.Parser;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.exception.DuplicateLinkException;
+import ru.tinkoff.edu.java.scrapper.exception.LinkParserException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.SubscriptionRepository;
@@ -30,7 +31,7 @@ public class JdbcLinkService implements LinkService {
     @Transactional
     public Link add(long tgChatId, URI url) {
         if (linkParser.parse(url.toString()) == null){
-            throw new RuntimeException("Can't parse this url");}
+            throw new LinkParserException("Can't parse this link");}
 
         Link link = buildLink(url);
         if(linkRepository.findLinkByUrl(link.getUrl()).isEmpty()){
@@ -52,7 +53,7 @@ public class JdbcLinkService implements LinkService {
     @Transactional
     public Link remove(long tgChatId, URI url) {
         if (linkParser.parse(url.toString()) == null) {
-            throw new RuntimeException("Can't parse this link");
+            throw new LinkParserException("Can't parse this link");
         }
 
         Link link = buildLink(url);

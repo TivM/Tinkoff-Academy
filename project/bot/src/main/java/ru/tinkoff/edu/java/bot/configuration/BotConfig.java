@@ -18,7 +18,7 @@ public class BotConfig {
     TelegramBot telegramBot(CommandProcessor commandProcessor) {
         TelegramBot bot = new TelegramBot(applicationConfig.bot().apiKey());
 
-        var botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandProcessor);
+        BotUpdatesDispatcher botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandProcessor);
         bot.setUpdatesListener(botUpdatesDispatcher);
 
         bot.execute(new SetMyCommands(botUpdatesDispatcher.getCommands().toArray(new BotCommand[0])));

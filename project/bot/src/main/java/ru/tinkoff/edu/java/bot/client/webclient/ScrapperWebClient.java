@@ -38,7 +38,7 @@ public class ScrapperWebClient implements ScrapperClient {
 
     @Override
     public LinkResponse linksDelete(Long tgChatId, String url) {
-        return  webClient
+        return webClient
                 .method(HttpMethod.DELETE)
                 .uri(BASE_URL + LINKS_URI)
                 .header(TG_CHAT_ID_HEADER, Long.toString(tgChatId))
@@ -86,8 +86,6 @@ public class ScrapperWebClient implements ScrapperClient {
                         resp -> onServerErrorInternal(resp, "deleting chat")
                 )
                 .bodyToMono(Void.class).block();
-
-
     }
 
     @Override
@@ -105,7 +103,6 @@ public class ScrapperWebClient implements ScrapperClient {
                         resp -> onServerErrorInternal(resp, "registering new chat")
                 )
                 .bodyToMono(Void.class).block();
-
     }
 
 

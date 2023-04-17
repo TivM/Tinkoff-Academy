@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.exception.DuplicateLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.IncorrectRequestParameterException;
+import ru.tinkoff.edu.java.scrapper.exception.LinkParserException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 
 
@@ -86,9 +88,14 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-
-
-
-
-
+    @ExceptionHandler({LinkParserException.class,})
+    public ResponseEntity<Object> handleLinkParserException(LinkParserException ex) {
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .description("Incorrect link")
+                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .exceptionName(ex.getClass().getName())
+                .exceptionMessage(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

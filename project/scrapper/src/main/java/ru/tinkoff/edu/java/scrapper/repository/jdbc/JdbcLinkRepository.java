@@ -67,7 +67,6 @@ public class JdbcLinkRepository implements LinkRepository {
                             "updatedAt", link.getUpdatedAt(),
                             "updatesCount", link.getUpdatesCount(),
                             "id", link.getId()));
-
     }
 
     @Override
@@ -103,6 +102,4 @@ public class JdbcLinkRepository implements LinkRepository {
     public List<Link> findCheckedLongTimeAgoLinks(int limit) {
         return jdbcTemplate.query(FIND_CHECKED_LONG_TIME_AGO_SQL, Map.of("limit", limit), rowMapper);
     }
-
-
 }

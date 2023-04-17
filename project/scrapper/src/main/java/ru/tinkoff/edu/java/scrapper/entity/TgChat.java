@@ -9,7 +9,7 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 
 @Data
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class TgChat {

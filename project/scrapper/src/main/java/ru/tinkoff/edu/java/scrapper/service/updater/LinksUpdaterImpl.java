@@ -16,6 +16,7 @@ import ru.tinkoff.edu.java.scrapper.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.SubscriptionRepository;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class LinksUpdaterImpl implements LinksUpdater {
 
     @Override
     public void updateLinks(int limit) {
-        var links = linkRepository.findCheckedLongTimeAgoLinks(limit);
+        List<Link> links = linkRepository.findCheckedLongTimeAgoLinks(limit);
 
         for (Link link: links) {
             link.setLastCheckTime(OffsetDateTime.now());

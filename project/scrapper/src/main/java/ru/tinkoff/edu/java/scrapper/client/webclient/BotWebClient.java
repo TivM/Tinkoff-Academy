@@ -28,7 +28,6 @@ public class BotWebClient implements BotClient {
     }
 
 
-
     @Override
     public void updatesPost(LinkUpdateRequest linkUpdateRequest) {
         webClient

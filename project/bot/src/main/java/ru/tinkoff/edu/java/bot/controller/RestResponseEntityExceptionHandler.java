@@ -44,15 +44,4 @@ public class RestResponseEntityExceptionHandler extends
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
-
-//    private ResponseEntity<Object> createError(String description, Exception exception, String code) {
-//        ApiErrorResponse response = new ApiErrorResponse();
-//        response.setDescription(description);
-//        response.setCode(code);
-//        response.setExceptionName(exception.getClass().getName());
-//        response.setExceptionMessage(exception.getMessage());
-//        exception.setStackTrace(exception.getStackTrace());
-//
-//    }
 }

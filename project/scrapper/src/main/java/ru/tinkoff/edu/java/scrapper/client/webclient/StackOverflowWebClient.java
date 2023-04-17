@@ -25,7 +25,7 @@ public class StackOverflowWebClient implements StackOverflowClient {
         this.baseUrl = baseUrl;
     }
 
-    //return List<StackOverflowApiResponse>
+
     @Override
     public StackOverflowApiResponse fetchQuestion(String id) {
         return webClient

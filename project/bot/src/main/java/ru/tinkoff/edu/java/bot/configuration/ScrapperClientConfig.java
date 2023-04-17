@@ -22,7 +22,7 @@ public class ScrapperClientConfig {
 
     @Bean
     public WebClient webClient() {
-        final var httpClient = HttpClient
+        final HttpClient httpClient = HttpClient
                 .create()
                 .compress(true)
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, TIMEOUT)
@@ -41,6 +41,4 @@ public class ScrapperClientConfig {
     public ScrapperClient scrapperWebClient(WebClient webClient){
         return new ScrapperWebClient(webClient);
     }
-
-
 }

@@ -57,7 +57,7 @@ public class JdbcSubscriptionRepository implements SubscriptionRepository {
 
     @Override
     public List<TgChat> findChatsByLinkId(Long id) {
-        var link = linkRepository
+        Link link = linkRepository
                 .findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
         return jdbcTemplate.query(FIND_CHATS_BY_LINK_ID_SQL, Map.of("id", link.getId()), tgChatRowMapper);
@@ -65,7 +65,7 @@ public class JdbcSubscriptionRepository implements SubscriptionRepository {
 
     @Override
     public void addLinkToChat(Long chatId, Link link) {
-        var tgChat = tgChatRepository
+        TgChat tgChat = tgChatRepository
                 .findById(chatId)
                 .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
         link = linkRepository
@@ -77,14 +77,11 @@ public class JdbcSubscriptionRepository implements SubscriptionRepository {
                 ADD_LINK_TO_CHAT_SQL,
                 Map.of("chatId", tgChat.getId(),
                         "linkId", link.getId()));
-
-
-
     }
 
     @Override
     public void deleteLinkFromChat(Long chatId, Link link) {
-        var tgChat = tgChatRepository
+        TgChat tgChat = tgChatRepository
                 .findById(chatId)
                 .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
         link = linkRepository

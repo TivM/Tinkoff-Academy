@@ -3,6 +3,7 @@ app:
 
   scheduler:
     interval: 10000
+    limit: 2
 
 github:
   url:
