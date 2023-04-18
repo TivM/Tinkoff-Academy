@@ -17,6 +17,9 @@ bot:
   url:
     base: http://localhost:8081
 
+webclient:
+  timeout: 1000
+
 
 springdoc:
   swagger-ui:

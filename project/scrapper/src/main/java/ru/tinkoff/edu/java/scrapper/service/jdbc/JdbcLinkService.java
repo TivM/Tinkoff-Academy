@@ -11,12 +11,10 @@ import ru.tinkoff.edu.java.scrapper.exception.LinkParserException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.SubscriptionRepository;
-import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,13 +28,14 @@ public class JdbcLinkService implements LinkService {
     @Override
     @Transactional
     public Link add(long tgChatId, URI url) {
-        if (linkParser.parse(url.toString()) == null){
-            throw new LinkParserException("Can't parse this link");}
+        if (linkParser.parse(url.toString()) == null) {
+            throw new LinkParserException("Can't parse this link");
+        }
 
         Link link = buildLink(url);
-        if(linkRepository.findLinkByUrl(link.getUrl()).isEmpty()){
-            link = linkRepository.save(link);}
-        else{
+        if (linkRepository.findLinkByUrl(link.getUrl()).isEmpty()) {
+            link = linkRepository.save(link);
+        } else {
             link = linkRepository.findLinkByUrl(link.getUrl()).get();
         }
 
@@ -61,7 +60,7 @@ public class JdbcLinkService implements LinkService {
         try {
             link = linkRepository.findLinkByUrl(link.getUrl()).get();
             subscriptionRepository.deleteLinkFromChat(tgChatId, link);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             throw new ResourceNotFoundException("Link not found");
         }
         return link;
@@ -74,7 +73,7 @@ public class JdbcLinkService implements LinkService {
     }
 
 
-    private static Link buildLink(URI url){
+    private static Link buildLink(URI url) {
         return Link.builder().url(url).build();
     }
 }

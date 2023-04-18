@@ -14,14 +14,12 @@ import ru.tinkoff.edu.java.scrapper.service.updater.LinksUpdater;
 public class LinkUpdaterScheduler {
     private final LinksUpdater linksUpdater;
 
-    //TODO: add limit in application.yml
-    @Value("${app.scheduler.limit}")
+    @Value("#{@schedulerLimitForUpdateLinks}")
     private Integer updateLinkLimit;
 
     @Scheduled(fixedDelayString = "#{@schedulerIntervalMs}")
     public void update() {
-        linksUpdater.updateLinks(2);
-        //linksUpdater.updateLinks(updateLinkLimit); //TODO: check this
+        linksUpdater.updateLinks(updateLinkLimit);
         log.info("Update method in LinkUpdaterScheduler class");
 
     }

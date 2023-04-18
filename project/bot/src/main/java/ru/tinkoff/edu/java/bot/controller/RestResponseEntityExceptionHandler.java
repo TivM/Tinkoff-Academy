@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.bot.controller;
 
 
+import org.jetbrains.annotations.NotNull;
 import org.openapitools.model.ApiErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,9 @@ public class RestResponseEntityExceptionHandler extends
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatusCode status,
-                                                                  WebRequest request) {
+                                                                  @NotNull HttpHeaders headers,
+                                                                  @NotNull HttpStatusCode status,
+                                                                  @NotNull WebRequest request) {
         ApiErrorResponse response = ApiErrorResponse.builder()
                 .description("Incorrect JSON")
                 .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))

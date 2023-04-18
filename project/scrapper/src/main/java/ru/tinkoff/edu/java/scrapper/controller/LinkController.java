@@ -12,16 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.exception.DuplicateLinkException;
-import ru.tinkoff.edu.java.scrapper.exception.IncorrectRequestParameterException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
-import ru.tinkoff.edu.java.scrapper.repository.SubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,14 +46,12 @@ public class LinkController implements LinksApi {
 
     @Override
     public ResponseEntity<LinkResponse> linksPost(Long tgChatId, AddLinkRequest addLinkRequest)
-            throws URISyntaxException, DuplicateLinkException {
+            throws DuplicateLinkException, URISyntaxException {
 
         Link link = linkService.add(tgChatId, addLinkRequest.getLink());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(convertToLinkResponse(link));
     }
-
-
 
 
     private LinkResponse convertToLinkResponse(Link link) throws URISyntaxException {
@@ -71,13 +64,14 @@ public class LinkController implements LinksApi {
     private ListLinksResponse convertToListLinkResponse(Collection<Link> linksToResponse) throws URISyntaxException {
         return ListLinksResponse.builder()
                 .links(linksToResponse.stream().map(link -> {
-                            try {
-                                return convertToLinkResponse(link);
-                            } catch (URISyntaxException e) {
-                                throw new RuntimeException(e);
-                            }
+                    try {
+                        return convertToLinkResponse(link);
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
                 }).toList())
                 .size(linksToResponse.size())
                 .build();
     }
+
 }

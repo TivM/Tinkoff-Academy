@@ -1,6 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.repository.jdbc;
 
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Primary
 @Repository
 @RequiredArgsConstructor
 public class JdbcTgChatRepository implements TgChatRepository {

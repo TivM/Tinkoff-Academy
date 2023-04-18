@@ -15,5 +15,4 @@ public interface SubscriptionRepository {
     void deleteLinkFromChat(Long chatId, Link link);
 
 
-
 }

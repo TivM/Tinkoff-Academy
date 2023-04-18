@@ -35,20 +35,18 @@ public class LinksUpdaterImpl implements LinksUpdater {
     public void updateLinks(int limit) {
         List<Link> links = linkRepository.findCheckedLongTimeAgoLinks(limit);
 
-        for (Link link: links) {
+        for (Link link : links) {
             link.setLastCheckTime(OffsetDateTime.now());
 
-            ParseResult parseResult= linkParser.parse(link.getUrl().toString());
-            if (parseResult == null){
+            ParseResult parseResult = linkParser.parse(link.getUrl().toString());
+            if (parseResult == null) {
                 throw new RuntimeException("Can't parse this link");
             }
-            if (parseResult instanceof ParseResult.GitHubUserRepository gitHubUserRepository){
+            if (parseResult instanceof ParseResult.GitHubUserRepository gitHubUserRepository) {
                 checkGitHub(gitHubUserRepository, link);
-            }
-            else if (parseResult instanceof ParseResult.StackOverflowQuestionId stackOverflowQuestionId){
+            } else if (parseResult instanceof ParseResult.StackOverflowQuestionId stackOverflowQuestionId) {
                 checkStackOverflow(stackOverflowQuestionId, link);
-            }
-            else{
+            } else {
                 throw new RuntimeException("Link" + link.getUrl() + "can't be parsed");
             }
 
@@ -58,14 +56,14 @@ public class LinksUpdaterImpl implements LinksUpdater {
     }
 
 
-    private void checkGitHub(ParseResult.GitHubUserRepository gitHubUserRepository, Link link){
+    private void checkGitHub(ParseResult.GitHubUserRepository gitHubUserRepository, Link link) {
         GitHubApiResponse gitHubResponse = gitHubClient
-                .fetchRepository(gitHubUserRepository.userName(),gitHubUserRepository.repository());
+                .fetchRepository(gitHubUserRepository.userName(), gitHubUserRepository.repository());
 
         checkGitHubUpdates(gitHubResponse, link);
     }
 
-    private void checkStackOverflow(ParseResult.StackOverflowQuestionId stackOverflowQuestionId, Link link){
+    private void checkStackOverflow(ParseResult.StackOverflowQuestionId stackOverflowQuestionId, Link link) {
         StackOverflowApiResponse stackOverflowApiResponse = stackOverflowClient
                 .fetchQuestion(stackOverflowQuestionId.questionId());
 
@@ -79,12 +77,10 @@ public class LinksUpdaterImpl implements LinksUpdater {
 
         boolean sameUpdatesCount = Objects.equals(link.getUpdatesCount(), issuesCount);
 
-        if (link.getUpdatedAt() == null){
+        if (link.getUpdatedAt() == null) {
             link.setUpdatedAt(updatedAt);
             link.setUpdatesCount(issuesCount);
-        }
-
-        else if (!Objects.equals(link.getUpdatedAt(), updatedAt) || !sameUpdatesCount) {
+        } else if (!Objects.equals(link.getUpdatedAt(), updatedAt) || !sameUpdatesCount) {
             link.setUpdatedAt(updatedAt);
             String description;
             if (!sameUpdatesCount) {
@@ -122,7 +118,7 @@ public class LinksUpdaterImpl implements LinksUpdater {
     }
 
 
-    private void notifyBot(Link link, String description){
+    private void notifyBot(Link link, String description) {
         botClient.updatesPost(
                 new LinkUpdateRequest(link.getId(),
                         link.getUrl().toString(),

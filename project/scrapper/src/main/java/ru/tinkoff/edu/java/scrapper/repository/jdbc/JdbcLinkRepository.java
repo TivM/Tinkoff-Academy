@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
@@ -17,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Primary
 @Repository
 @RequiredArgsConstructor
-@Primary
 @Slf4j
 public class JdbcLinkRepository implements LinkRepository {
 
@@ -43,7 +42,7 @@ public class JdbcLinkRepository implements LinkRepository {
             select id, url, last_check_time, updated_at, updates_count from link where url = :url
             """;
     private static final String FIND_CHECKED_LONG_TIME_AGO_SQL = """
-            select id, url, last_check_time, updated_at, updates_count from link
+            select id, url, last_check_time, updated_at, updates_count from LINK
             order by last_check_time nulls first limit :limit
             """;
 
@@ -54,19 +53,19 @@ public class JdbcLinkRepository implements LinkRepository {
 
     @Override
     public Link save(Link link) {
-            return jdbcTemplate.queryForObject(
-                    SAVE_SQL,
-                    Map.of("url", link.getUrl().toString()),
-                    rowMapper);
+        return jdbcTemplate.queryForObject(
+                SAVE_SQL,
+                Map.of("url", link.getUrl().toString()),
+                rowMapper);
     }
 
-    public void update(Link link){
-            jdbcTemplate.update(
-                    UPDATE_SQL,
-                    Map.of("lastCheckTime", link.getLastCheckTime(),
-                            "updatedAt", link.getUpdatedAt(),
-                            "updatesCount", link.getUpdatesCount(),
-                            "id", link.getId()));
+    public void update(Link link) {
+        jdbcTemplate.update(
+                UPDATE_SQL,
+                Map.of("lastCheckTime", link.getLastCheckTime(),
+                        "updatedAt", link.getUpdatedAt(),
+                        "updatesCount", link.getUpdatesCount(),
+                        "id", link.getId()));
     }
 
     @Override
@@ -94,7 +93,7 @@ public class JdbcLinkRepository implements LinkRepository {
 
     @Override
     public void deleteById(Long id) {
-        jdbcTemplate.update(DELETE_BY_ID_SQL, Map.of("id",id));
+        jdbcTemplate.update(DELETE_BY_ID_SQL, Map.of("id", id));
     }
 
 

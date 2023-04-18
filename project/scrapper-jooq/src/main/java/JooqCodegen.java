@@ -1,10 +1,5 @@
 import org.jooq.codegen.GenerationTool;
-import org.jooq.meta.jaxb.Configuration;
-import org.jooq.meta.jaxb.Database;
-import org.jooq.meta.jaxb.Generate;
-import org.jooq.meta.jaxb.Generator;
-import org.jooq.meta.jaxb.Property;
-import org.jooq.meta.jaxb.Target;
+import org.jooq.meta.jaxb.*;
 
 public class JooqCodegen {
 
@@ -43,6 +38,9 @@ public class JooqCodegen {
                                 .withDatabase(database)
                                 .withGenerate(options)
                                 .withTarget(target)
+                                .withStrategy(new Strategy()
+                                        .withName("org.jooq.codegen.DefaultGeneratorStrategy")
+                                )
                 );
         GenerationTool.generate(configuration);
     }

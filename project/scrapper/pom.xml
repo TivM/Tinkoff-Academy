@@ -125,7 +125,6 @@
             <artifactId>jooq</artifactId>
         </dependency>
 
-
     </dependencies>
 
     <build>
