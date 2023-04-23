@@ -1,7 +1,7 @@
-package ru.tinkoff.edu.java.scrapper.service.updater;
+package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 import ru.tinkoff.edu.java.parser.Parser;
 import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 import ru.tinkoff.edu.java.scrapper.client.api.BotClient;
@@ -12,22 +12,23 @@ import ru.tinkoff.edu.java.scrapper.client.dto.LinkUpdateRequest;
 import ru.tinkoff.edu.java.scrapper.client.dto.StackOverflowApiResponse;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.entity.TgChat;
-import ru.tinkoff.edu.java.scrapper.repository.LinkRepository;
-import ru.tinkoff.edu.java.scrapper.repository.SubscriptionRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcSubscriptionRepository;
+import ru.tinkoff.edu.java.scrapper.service.LinksUpdater;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @RequiredArgsConstructor
-@Service
-public class LinksUpdaterImpl implements LinksUpdater {
+public class JdbcLinksUpdaterImpl implements LinksUpdater {
 
     private final BotClient botClient;
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
-    private final LinkRepository linkRepository;
-    private final SubscriptionRepository subscriptionRepository;
+    private final JdbcLinkRepository linkRepository;
+    private final JdbcSubscriptionRepository subscriptionRepository;
     private final Parser linkParser;
 
 
@@ -38,7 +39,7 @@ public class LinksUpdaterImpl implements LinksUpdater {
         for (Link link : links) {
             link.setLastCheckTime(OffsetDateTime.now());
 
-            ParseResult parseResult = linkParser.parse(link.getUrl().toString());
+            ParseResult parseResult = linkParser.parse(link.getUrl());
             if (parseResult == null) {
                 throw new RuntimeException("Can't parse this link");
             }
@@ -121,7 +122,7 @@ public class LinksUpdaterImpl implements LinksUpdater {
     private void notifyBot(Link link, String description) {
         botClient.updatesPost(
                 new LinkUpdateRequest(link.getId(),
-                        link.getUrl().toString(),
+                        link.getUrl(),
                         description,
                         subscriptionRepository
                                 .findChatsByLinkId(link.getId())

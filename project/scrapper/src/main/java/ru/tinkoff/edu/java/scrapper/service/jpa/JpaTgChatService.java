@@ -1,32 +1,29 @@
-package ru.tinkoff.edu.java.scrapper.service.jdbc;
+package ru.tinkoff.edu.java.scrapper.service.jpa;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.entity.TgChat;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
-import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcTgChatRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaTgChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 
-import java.time.OffsetDateTime;
-
-
 @RequiredArgsConstructor
-public class JdbcTgChatService implements TgChatService {
-
-    private final JdbcTgChatRepository tgChatRepository;
+public class JpaTgChatService implements TgChatService {
+    private final JpaTgChatRepository jpaTgChatRepository;
 
     @Override
     @Transactional
     public void register(long tgChatId) {
-        tgChatRepository.save(new TgChat().setId(tgChatId).setCreatedAt(OffsetDateTime.now()));
+        jpaTgChatRepository.save(new TgChat().setId(tgChatId));
+
     }
 
     @Override
     public void unregister(long tgChatId) {
-        TgChat tgChat = tgChatRepository.findById(tgChatId).orElseThrow(
+        TgChat tgChat = jpaTgChatRepository.findById(tgChatId).orElseThrow(
                 () -> new ResourceNotFoundException("chat doesn't exists")
         );
-        tgChatRepository.deleteById(tgChat.getId());
-
+        jpaTgChatRepository.deleteById(tgChat.getId());
     }
 }

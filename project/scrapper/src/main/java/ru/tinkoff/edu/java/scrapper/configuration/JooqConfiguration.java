@@ -40,7 +40,7 @@ public class JooqConfiguration {
         config.set(new Settings().
                 withRenderNameCase(RenderNameCase.LOWER));
         config.set(new DefaultExecuteListenerProvider(
-                new JooqExceptionTranslator() ));
+                new JooqExceptionTranslator()));
         return config;
     }
 }

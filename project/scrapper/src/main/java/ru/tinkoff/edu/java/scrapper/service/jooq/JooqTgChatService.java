@@ -1,19 +1,19 @@
-package ru.tinkoff.edu.java.scrapper.service.jdbc;
+package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.entity.TgChat;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
-import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcTgChatRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqTgChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 
 import java.time.OffsetDateTime;
 
 
 @RequiredArgsConstructor
-public class JdbcTgChatService implements TgChatService {
+public class JooqTgChatService implements TgChatService {
 
-    private final JdbcTgChatRepository tgChatRepository;
+    private final JooqTgChatRepository tgChatRepository;
 
     @Override
     @Transactional
@@ -27,6 +27,7 @@ public class JdbcTgChatService implements TgChatService {
                 () -> new ResourceNotFoundException("chat doesn't exists")
         );
         tgChatRepository.deleteById(tgChat.getId());
+
 
     }
 }

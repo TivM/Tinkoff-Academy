@@ -2,14 +2,11 @@ package ru.tinkoff.edu.java.scrapper.jdbc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
-import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 
@@ -28,7 +25,7 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
     JdbcLinkRepository linkRepository;
 
     private static Link makeTestLink() {
-        return Link.builder().url(URI.create("url.com")).build();
+        return new Link().setUrl("url.com");
     }
 
     @Test
@@ -79,7 +76,7 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
 
         //when
         linkRepository.save(link);
-        Optional<Link> foundLink = linkRepository.findLinkByUrl(URI.create("url.com"));
+        Optional<Link> foundLink = linkRepository.findLinkByUrl("url.com");
 
         //then
         assertAll(
@@ -95,7 +92,7 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
     @Sql("/sql/add_links.sql")
     public void deleteById__dbHasLinkWithId_success() {
         //given
-        var id = linkRepository.findLinkByUrl(URI.create("https://link.com")).get().getId();
+        var id = linkRepository.findLinkByUrl("https://link.com").get().getId();
 
         //when
         linkRepository.deleteById(id);

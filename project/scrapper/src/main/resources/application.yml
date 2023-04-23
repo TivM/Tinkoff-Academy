@@ -5,6 +5,8 @@ app:
     interval: 10000
     limit: 2
 
+  database-access-type: jpa
+
 github:
   url:
     base: https://api.github.com/repos/
@@ -26,6 +28,20 @@ springdoc:
     path: /swagger-ui
 
 spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: true
+        show_sql: true
+        jdbc:
+          batch_size: 50
+          fetch_size: 50
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+
+
   liquibase:
     enabled: false
   datasource:

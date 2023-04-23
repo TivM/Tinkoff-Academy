@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.service.jdbc;
+package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -6,18 +6,19 @@ import ru.tinkoff.edu.java.parser.Parser;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.exception.LinkParserException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
-import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
-import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcSubscriptionRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;
+import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 import java.net.URI;
 import java.util.Collection;
 
-@RequiredArgsConstructor
-public class JdbcLinkService implements LinkService {
 
-    private final JdbcLinkRepository linkRepository;
-    private final JdbcSubscriptionRepository subscriptionRepository;
+@RequiredArgsConstructor
+public class JooqLinkService implements LinkService {
+
+    private final JooqLinkRepository linkRepository;
+    private final JooqSubscriptionRepository subscriptionRepository;
     private final Parser linkParser;
 
 
