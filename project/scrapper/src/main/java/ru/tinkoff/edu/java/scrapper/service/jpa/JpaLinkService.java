@@ -29,11 +29,11 @@ public class JpaLinkService implements LinkService {
     @Transactional
     public Link add(long tgChatId, URI url) {
         if (linkParser.parse(url.toString()) == null) {
+            log.info("cant parse");
             throw new LinkParserException("Can't parse this link");
+
         }
         Link link = new Link().setUrl(url.toString());
-
-        log.info(String.valueOf(link));
 
 
         TgChat tgChat = tgChatRepository
@@ -70,4 +70,10 @@ public class JpaLinkService implements LinkService {
 
         return tgChat.getLinks();
     }
+
+//    @Override
+//    @Transactional
+//    public Collection<TgChat> getChatsByLink(Link link) {
+//        return null;
+//    }
 }

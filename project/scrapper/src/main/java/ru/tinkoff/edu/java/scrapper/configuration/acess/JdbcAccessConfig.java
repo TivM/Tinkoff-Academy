@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.configuration.acess;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,26 +15,29 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcTgChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinksUpdaterImpl;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcTgChatService;
+import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
 @Configuration
-@ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jdbc") //TODO ???
+@RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jdbc")
 public class JdbcAccessConfig {
 
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+
     @Bean
-    public JdbcTgChatRepository jdbcTgChatRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+    public JdbcTgChatRepository jdbcTgChatRepository() {
         return new JdbcTgChatRepository(jdbcTemplate);
     }
 
     @Bean
-    public JdbcLinkRepository jdbcLinkRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+    public JdbcLinkRepository jdbcLinkRepository() {
         return new JdbcLinkRepository(jdbcTemplate);
     }
 
     @Bean
     public JdbcSubscriptionRepository jdbcSubscriptionRepository(
             JdbcLinkRepository linkRepository,
-            JdbcTgChatRepository tgChatRepository,
-            NamedParameterJdbcTemplate jdbcTemplate) {
+            JdbcTgChatRepository tgChatRepository) {
         return new JdbcSubscriptionRepository(linkRepository, tgChatRepository, jdbcTemplate);
     }
 
@@ -52,15 +56,15 @@ public class JdbcAccessConfig {
 
     @Bean
     public JdbcLinksUpdaterImpl jdbcLinksUpdaterImpl(
-            BotClient botClient,
             GitHubClient gitHubClient,
             StackOverflowClient stackOverflowClient,
             JdbcLinkRepository linkRepository,
             JdbcSubscriptionRepository subscriptionRepository,
-            Parser linkParser
+            Parser linkParser,
+            BotNotifier botNotifier
     ) {
         return new JdbcLinksUpdaterImpl(
-                botClient, gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser);
+                gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser, botNotifier);
     }
 
 

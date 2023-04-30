@@ -1,30 +1,27 @@
-package ru.tinkoff.edu.java.bot.service;
+package ru.tinkoff.edu.java.bot.service.receiver;
 
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.model.LinkUpdateRequest;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 
 import java.util.Map;
 
-@Service
 @RequiredArgsConstructor
-public class AlertUpdatesServiceImpl implements AlertUpdatesService{
+public abstract class UpdatesReceiver {
 
     private final TelegramBot telegramBot;
     private final MessageSender messageSender;
 
+    public abstract void receiveUpdates(LinkUpdateRequest linkUpdateRequest);
 
-    @Override
-    public void alertUpdates(LinkUpdateRequest linkUpdateRequest) {
+    protected void alertUpdates(LinkUpdateRequest linkUpdateRequest) {
         Map<String, Object> model = Map.of("description", linkUpdateRequest.getDescription(),
                 "url", linkUpdateRequest.getUrl());
 
         for (long chatId : linkUpdateRequest.getTgChatIds()) {
-            SendMessage message = messageSender.sendTemplate(chatId, "update.ftl", model);
+            SendMessage message = messageSender.sendTemplateId(chatId, "update.ftl", model);
             telegramBot.execute(message);
         }
     }

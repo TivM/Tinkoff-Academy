@@ -14,6 +14,7 @@ import ru.tinkoff.edu.java.scrapper.entity.TgChat;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinksUpdater;
+import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -22,12 +23,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class JooqLinksUpdaterImpl implements LinksUpdater {
 
-    private final BotClient botClient;
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
     private final JooqLinkRepository linkRepository;
     private final JooqSubscriptionRepository subscriptionRepository;
     private final Parser linkParser;
+    private final BotNotifier botNotifier;
 
 
     @Override
@@ -88,7 +89,12 @@ public class JooqLinksUpdaterImpl implements LinksUpdater {
             } else {
                 description = "Something new!";
             }
-            notifyBot(link, description);
+
+            botNotifier.notifyBot(
+                    link,
+                    description,
+                    subscriptionRepository.findChatsByLinkId(link.getId())
+            );
         }
     }
 
@@ -111,23 +117,12 @@ public class JooqLinksUpdaterImpl implements LinksUpdater {
                 description = "Something new!";
             }
 
-            notifyBot(link, description);
+            botNotifier.notifyBot(
+                    link,
+                    description,
+                    subscriptionRepository.findChatsByLinkId(link.getId())
+            );
 
         }
-    }
-
-
-    private void notifyBot(Link link, String description) {
-        botClient.updatesPost(
-                new LinkUpdateRequest(link.getId(),
-                        link.getUrl(),
-                        description,
-                        subscriptionRepository
-                                .findChatsByLinkId(link.getId())
-                                .stream().map(TgChat::getId)
-                                .toList()
-                )
-        );
-
     }
 }

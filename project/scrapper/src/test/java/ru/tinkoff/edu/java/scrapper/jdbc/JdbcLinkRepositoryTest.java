@@ -50,23 +50,9 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
 
         //then
         assertAll(
-                () -> assertThat(foundLink.getId()).isEqualTo(1L),
                 () -> assertThat(foundLink.getUrl()).isEqualTo(link.getUrl())
         );
     }
-
-
-    @Test
-    @Transactional
-    @Rollback
-    @Sql("/sql/add_links.sql")
-    public void findById__dbHasLinksWithId_success() {
-        assertAll(
-                () -> assertThat(linkRepository.findById(1L)).isNotEmpty(),
-                () -> assertThat(linkRepository.findById(2L)).isNotEmpty()
-        );
-    }
-
 
     @Test
     @Transactional
@@ -84,7 +70,21 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
                 () -> assertThat(foundLink).isNotEmpty(),
                 () -> assertThat(foundLink.get().getUrl()).isEqualTo(link.getUrl())
         );
+    }
 
+    @Test
+    @Transactional
+    @Rollback
+    @Sql("/sql/add_links.sql")
+    public void findById__dbHasLinksWithId_success() {
+        long id1= linkRepository.findLinkByUrl("https://link.com").get().getId();
+        long id2 = linkRepository.findLinkByUrl("https://newlink.com").get().getId();
+
+
+        assertAll(
+                () -> assertThat(linkRepository.findById(id1)).isNotEmpty(),
+                () -> assertThat(linkRepository.findById(id2)).isNotEmpty()
+        );
     }
 
     @Test
@@ -115,10 +115,10 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
     void findCheckedLongTimeAgoLinks__dbHasLinks_success() {
         List<Link> links = linkRepository.findCheckedLongTimeAgoLinks(4);
         assertAll(
-                () -> assertThat(links.get(0).getUrl()).isEqualTo(URI.create("https://link4.com")),
-                () -> assertThat(links.get(1).getUrl()).isEqualTo(URI.create("https://link2.com")),
-                () -> assertThat(links.get(2).getUrl()).isEqualTo(URI.create("https://link3.com")),
-                () -> assertThat(links.get(3).getUrl()).isEqualTo(URI.create("https://link1.com"))
+                () -> assertThat(links.get(0).getUrl()).isEqualTo("https://link4.com"),
+                () -> assertThat(links.get(1).getUrl()).isEqualTo("https://link2.com"),
+                () -> assertThat(links.get(2).getUrl()).isEqualTo("https://link3.com"),
+                () -> assertThat(links.get(3).getUrl()).isEqualTo("https://link1.com")
         );
 
     }

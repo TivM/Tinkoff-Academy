@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
-public class JooqConfiguration {
+public class JooqConfig {
     @Autowired
     DataSource dataSource;
 

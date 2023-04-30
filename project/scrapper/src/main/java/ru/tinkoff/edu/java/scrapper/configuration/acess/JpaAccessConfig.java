@@ -13,6 +13,7 @@ import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaTgChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaLinksUpdaterImpl;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaTgChatService;
+import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
@@ -35,14 +36,14 @@ public class JpaAccessConfig {
 
     @Bean
     public JpaLinksUpdaterImpl linksUpdater(
-            BotClient botClient,
             GitHubClient gitHubClient,
             StackOverflowClient stackOverflowClient,
             JpaLinkRepository linkRepository,
-            Parser linkParser
+            Parser linkParser,
+            BotNotifier botNotifier
     ) {
         return new JpaLinksUpdaterImpl(
-                botClient, gitHubClient, stackOverflowClient, linkRepository, linkParser);
+                gitHubClient, stackOverflowClient, linkRepository, linkParser, botNotifier);
     }
 
 }

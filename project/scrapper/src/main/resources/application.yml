@@ -1,11 +1,17 @@
 app:
   test: This is SCRAPPER ApplicationConfig!
 
+  queue-name: queue
+
+  exchange-name: exchange
+
+  use-queue: true
+
   scheduler:
     interval: 10000
     limit: 2
 
-  database-access-type: jpa
+  database-access-type: jdbc
 
 github:
   url:

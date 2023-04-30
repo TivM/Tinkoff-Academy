@@ -14,6 +14,7 @@ import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqTgChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinksUpdaterImpl;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqTgChatService;
+import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jooq") //TODO ???
@@ -53,14 +54,14 @@ public class JooqAccessConfig {
 
     @Bean
     public JooqLinksUpdaterImpl jooqLinksUpdaterImpl(
-            BotClient botClient,
             GitHubClient gitHubClient,
             StackOverflowClient stackOverflowClient,
             JooqLinkRepository linkRepository,
             JooqSubscriptionRepository subscriptionRepository,
-            Parser linkParser
+            Parser linkParser,
+            BotNotifier botNotifier
     ) {
         return new JooqLinksUpdaterImpl(
-                botClient, gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser);
+                gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser, botNotifier);
     }
 }
