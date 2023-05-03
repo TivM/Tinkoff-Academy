@@ -1,7 +1,9 @@
 package ru.tinkoff.edu.java.scrapper.jdbc;
 
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
@@ -14,8 +16,6 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcTgChatRepository;
 
-import static java.time.OffsetDateTime.now;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,6 +30,8 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
 
     @Autowired
     JdbcTgChatRepository tgChatRepository;
+
+
 
     @Test
     @Transactional
@@ -78,8 +80,8 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
     void addLinkToChat__chatAlreadyHasLink_throws() {
         Link link = linkRepository.findAll().get(0);
 
-        assertThatThrownBy(() -> subscriptionRepository.addLinkToChat(1L, link))
-                .isInstanceOf(DataAccessException.class);
+        assertThrows(DataAccessException.class,
+                () -> subscriptionRepository.addLinkToChat(1L, link));
     }
 
     @Test

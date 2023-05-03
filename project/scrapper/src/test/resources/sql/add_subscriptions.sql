@@ -1,3 +1,5 @@
+TRUNCATE TABLE link RESTART IDENTITY CASCADE;
+
 INSERT INTO tg_chat(id, created_at)
 VALUES (1, now()),
        (2, now());

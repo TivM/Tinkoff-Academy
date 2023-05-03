@@ -13,5 +13,4 @@ public interface LinkService {
 
     Collection<Link> listAll(long tgChatId);
 
-    //Collection<TgChat> getChatsByLink(Link link);
 }

@@ -17,6 +17,8 @@ import ru.tinkoff.edu.java.scrapper.exception.IncorrectRequestParameterException
 import ru.tinkoff.edu.java.scrapper.exception.LinkParserException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 
+import java.util.Arrays;
+
 
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends
@@ -27,72 +29,71 @@ public class RestResponseEntityExceptionHandler extends
                                                                   HttpHeaders headers,
                                                                   HttpStatusCode status,
                                                                   WebRequest request) {
-        ApiErrorResponse response = ApiErrorResponse.builder()
-                .description("Incorrect request body")
-                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                .exceptionName(ex.getClass().getName())
-                .exceptionMessage(ex.getMessage())
-                .stacktrace(ex.getStackTrace())
-                .build();
+        ApiErrorResponse response = new ApiErrorResponse();
+        response.setDescription("Incorrect request body");
+        response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
+        response.setExceptionName(ex.getClass().getName());
+        response.setExceptionMessage(ex.getMessage());
+        response.setStacktrace(Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());
+
         return new ResponseEntity<>(response, status);
     }
 
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class,})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        ApiErrorResponse response = ApiErrorResponse.builder()
-                .description("Incorrect argument")
-                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                .exceptionName(ex.getClass().getName())
-                .exceptionMessage(ex.getMessage())
-                .stacktrace(ex.getStackTrace())
-                .build();
+        ApiErrorResponse response = new ApiErrorResponse();
+        response.setDescription("Incorrect argument");
+        response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
+        response.setExceptionName(ex.getClass().getName());
+        response.setExceptionMessage(ex.getMessage());
+        response.setStacktrace(Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());
+
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({IncorrectRequestParameterException.class,})
     public ResponseEntity<Object> handleIncorrectRequestParameterException(IncorrectRequestParameterException ex) {
-        ApiErrorResponse response = ApiErrorResponse.builder()
-                .description("Incorrect request parameter")
-                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                .exceptionName(ex.getClass().getName())
-                .exceptionMessage(ex.getMessage())
-                .stacktrace(ex.getStackTrace())
-                .build();
+        ApiErrorResponse response = new ApiErrorResponse();
+        response.setDescription("Incorrect request parameter");
+        response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
+        response.setExceptionName(ex.getClass().getName());
+        response.setExceptionMessage(ex.getMessage());
+        response.setStacktrace(Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());
+
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 
     @ExceptionHandler({ResourceNotFoundException.class,})
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        ApiErrorResponse response = ApiErrorResponse.builder()
-                .description("Not found")
-                .code(String.valueOf(HttpStatus.NOT_FOUND.value()))
-                .exceptionName(ex.getClass().getName())
-                .exceptionMessage(ex.getMessage())
-                .build();
+        ApiErrorResponse response = new ApiErrorResponse();
+        response.setDescription("Not found");
+        response.setCode(String.valueOf(HttpStatus.NOT_FOUND.value()));
+        response.setExceptionName(ex.getClass().getName());
+        response.setExceptionMessage(ex.getMessage());
+
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({DuplicateLinkException.class,})
     public ResponseEntity<Object> handleDuplicateLinkException(DuplicateLinkException ex) {
-        ApiErrorResponse response = ApiErrorResponse.builder()
-                .description("Duplicate links")
-                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                .exceptionName(ex.getClass().getName())
-                .exceptionMessage(ex.getMessage())
-                .build();
+        ApiErrorResponse response = new ApiErrorResponse();
+        response.setDescription("Not found");
+        response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
+        response.setExceptionName(ex.getClass().getName());
+        response.setExceptionMessage(ex.getMessage());
+
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({LinkParserException.class,})
     public ResponseEntity<Object> handleLinkParserException(LinkParserException ex) {
-        ApiErrorResponse response = ApiErrorResponse.builder()
-                .description("Incorrect link")
-                .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
-                .exceptionName(ex.getClass().getName())
-                .exceptionMessage(ex.getMessage())
-                .build();
+        ApiErrorResponse response = new ApiErrorResponse();
+        response.setDescription("Incorrect link");
+        response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
+        response.setExceptionName(ex.getClass().getName());
+        response.setExceptionMessage(ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

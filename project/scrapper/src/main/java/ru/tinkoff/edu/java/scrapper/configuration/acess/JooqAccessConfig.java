@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.java.parser.Parser;
-import ru.tinkoff.edu.java.scrapper.client.api.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.api.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.api.StackOverflowClient;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;

@@ -32,9 +32,4 @@ public class TgChat {
 
     private Set<Link> links = new HashSet<>();
 
-
-//    @ManyToMany(cascade = CascadeType.REMOVE,
-//            mappedBy = "tgChats")
-//    private Set<LinkEntity> links = new HashSet<>();
-
 }
