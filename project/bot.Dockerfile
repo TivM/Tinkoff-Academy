@@ -1,4 +1,4 @@
-FROM openjdk:19
+FROM openjdk:17-slim
 
 ARG JAR_FILE=bot/target/*.jar
 WORKDIR /app/bot
