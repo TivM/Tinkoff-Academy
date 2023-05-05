@@ -53,13 +53,16 @@ public class MessageSenderTest {
         SendMessage message = messageSender.sendTemplateUpdate(update, "links.ftl", Map.of("links", links));
 
         //then
-        Object text = message.getParameters().get("text");
+        Object text = message.getParameters().get("text")
+                .toString()
+                .replaceAll("\r", ""); //to ignore diff in line separator
 
         assertThat(text).isEqualTo("""
              <b>Your links:</b>
                  <a href="https://github.com/">https://github.com/</a>
                  <a href="https://stackoverflow.com/">https://stackoverflow.com/</a>
              """);
+
 
 
     }
