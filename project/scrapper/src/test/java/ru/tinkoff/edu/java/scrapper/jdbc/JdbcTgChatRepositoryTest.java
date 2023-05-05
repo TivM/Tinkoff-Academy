@@ -27,7 +27,7 @@ public class JdbcTgChatRepositoryTest extends IntegrationEnvironment {
 
     private static TgChat makeTestChat() {
         return new TgChat()
-                .setId(1L)
+                .setId(100L)
                 .setCreatedAt(now());
     }
 
@@ -52,7 +52,7 @@ public class JdbcTgChatRepositoryTest extends IntegrationEnvironment {
 
         //then
         assertAll(
-                () -> assertThat(foundChat.getId()).isEqualTo(1L)
+                () -> assertThat(foundChat.getId()).isEqualTo(100L)
         );
     }
 

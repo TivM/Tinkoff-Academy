@@ -37,8 +37,8 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
     @Sql("/sql/add_subscriptions.sql")
     public void findLinksByChatId__dbHasLinksById_success() {
         assertAll(
-                () -> assertThat(subscriptionRepository.findLinksByChatId(1L)).hasSize(2),
-                () -> assertThat(subscriptionRepository.findLinksByChatId(2L)).hasSize(1)
+                () -> assertThat(subscriptionRepository.findLinksByChatId(11L)).hasSize(2),
+                () -> assertThat(subscriptionRepository.findLinksByChatId(22L)).hasSize(1)
 
         );
     }
@@ -64,10 +64,10 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
         Link link = linkRepository.findById(2L).orElseThrow();
 
         //when
-        subscriptionRepository.addLinkToChat(2L, link);
+        subscriptionRepository.addLinkToChat(22L, link);
 
         //then
-        assertThat(subscriptionRepository.findLinksByChatId(2L)).hasSize(2);
+        assertThat(subscriptionRepository.findLinksByChatId(22L)).hasSize(2);
     }
 
 
@@ -79,7 +79,7 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
         Link link = linkRepository.findAll().get(0);
 
         assertThrows(DataAccessException.class,
-                () -> subscriptionRepository.addLinkToChat(1L, link));
+                () -> subscriptionRepository.addLinkToChat(11L, link));
     }
 
     @Test
@@ -91,10 +91,10 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
         Link link = linkRepository.findById(2L).orElseThrow();
 
         //when
-        subscriptionRepository.deleteLinkFromChat(1L, link);
+        subscriptionRepository.deleteLinkFromChat(11L, link);
 
         //then
-        assertThat(subscriptionRepository.findLinksByChatId(2L)).hasSize(1);
+        assertThat(subscriptionRepository.findLinksByChatId(22L)).hasSize(1);
     }
 }
 
