@@ -48,11 +48,10 @@ public class JdbcTgChatRepositoryTest extends IntegrationEnvironment {
 
         //when
         tgChatRepository.save(chat);
-        TgChat foundChat = tgChatRepository.findAll().get(0);
 
         //then
         assertAll(
-                () -> assertThat(foundChat.getId()).isEqualTo(100L)
+                () -> assertThat(tgChatRepository.findById(100L)).isNotEmpty()
         );
     }
 
