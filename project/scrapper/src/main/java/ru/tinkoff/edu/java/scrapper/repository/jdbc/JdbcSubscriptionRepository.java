@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 
-//убрать subscription repository
-
 @RequiredArgsConstructor
 public class JdbcSubscriptionRepository implements SubscriptionRepository {
 

@@ -9,14 +9,12 @@ import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public abstract class UpdatesReceiver {
+public class UpdatesReceiver {
 
     private final TelegramBot telegramBot;
     private final MessageSender messageSender;
 
-    public abstract void receiveUpdates(LinkUpdateRequest linkUpdateRequest);
-
-    protected void alertUpdates(LinkUpdateRequest linkUpdateRequest) {
+    public void alertUpdates(LinkUpdateRequest linkUpdateRequest) {
         Map<String, Object> model = Map.of("description", linkUpdateRequest.getDescription(),
                 "url", linkUpdateRequest.getUrl());
 

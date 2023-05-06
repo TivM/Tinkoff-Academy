@@ -6,13 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 import ru.tinkoff.edu.java.bot.service.receiver.QueueUpdatesReceiver;
+import ru.tinkoff.edu.java.bot.service.receiver.UpdatesReceiver;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "true")
 public class QueueUpdatesReceiverConfig {
 
     @Bean
-    public QueueUpdatesReceiver queueUpdatesReceiver(TelegramBot telegramBot, MessageSender messageSender){
-        return new QueueUpdatesReceiver(telegramBot, messageSender);
+    public QueueUpdatesReceiver queueUpdatesReceiver(UpdatesReceiver updatesReceiver){
+        return new QueueUpdatesReceiver(updatesReceiver);
     }
 }

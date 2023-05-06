@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.repository.jpa;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaLinkRepository extends JpaRepository<Link, Long> {
-
     Optional<Link> findByUrl(String url);
 
     @Modifying
@@ -25,10 +26,5 @@ public interface JpaLinkRepository extends JpaRepository<Link, Long> {
 
     @Query(value = "select * from link order by last_check_time nulls first limit :limit", nativeQuery = true)
     List<Link> findCheckedLongTimeAgoLinks(@Param("limit") int limit);
-
-    @Query(value = "select id, created_at from tg_chat c join subscription cl on c.id = cl.tg_chat_id\n" +
-            "            where cl.link_id = :id", nativeQuery = true)
-    List<TgChat> findChatsByLinkId(@Param("id") Long id);
-
 
 }

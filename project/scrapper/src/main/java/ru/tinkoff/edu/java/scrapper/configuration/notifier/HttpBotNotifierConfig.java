@@ -7,7 +7,7 @@ import ru.tinkoff.edu.java.scrapper.client.api.BotClient;
 import ru.tinkoff.edu.java.scrapper.service.notifier.HttpBotNotifier;
 
 @Configuration
-@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false")
+@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false", matchIfMissing = true)
 public class HttpBotNotifierConfig {
 
     @Bean

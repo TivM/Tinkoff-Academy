@@ -18,6 +18,6 @@ public class QueueBotNotifierConfig {
     @Bean
     public QueueBotNotifier queueBotNotifier(Queue queue){
         return new QueueBotNotifier(template, queue);
-
     }
+
 }

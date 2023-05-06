@@ -16,9 +16,7 @@ import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
 @Import(ParserConfig.class)
 public class ScrapperApplication {
     public static void main(String[] args) {
-        var ctx = SpringApplication.run(ScrapperApplication.class, args);
-        ApplicationConfig config = ctx.getBean(ApplicationConfig.class);
-        log.debug(config.test());
+       SpringApplication.run(ScrapperApplication.class, args);
     }
 
 }

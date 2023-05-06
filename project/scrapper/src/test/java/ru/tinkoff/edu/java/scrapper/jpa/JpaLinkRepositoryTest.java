@@ -82,17 +82,6 @@ public class JpaLinkRepositoryTest extends IntegrationEnvironment {
         assertThat(jpaLinkRepository.findCheckedLongTimeAgoLinks(5)).isEmpty();
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback
-//    @Sql("/sql/add_subscriptions.sql")
-//    public void findChatsByLinkId__dbHasChatsById_success() {
-//        assertAll(
-//                () -> assertThat(jpaLinkRepository.findChatsByLinkId(1L)).hasSize(2),
-//                () -> assertThat(jpaLinkRepository.findChatsByLinkId(2L)).hasSize(1)
-//
-//        );
-//    }
 
     @Test
     @Transactional
