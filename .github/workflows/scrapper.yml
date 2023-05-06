@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "project/scrapper/**"
+      - "project/link-parser/**"
       - "project/scrapper.Dockerfile"
       - "project/pom.xml"
       - ".github/workflows/scrapper.yml"
