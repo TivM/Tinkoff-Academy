@@ -8,6 +8,10 @@ import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 public class GitHubParser extends AbstractParser {
     private static final String HOST = "github.com";
     private static final Integer MIN_LENGTH = 4;
+    private static final Integer POSITION_OF_USER = 2;
+    private static final Integer POSITION_OF_REPO = 3;
+
+
 
     @Override
     protected ParseResult parseUrl(String[] splitUrl) {
@@ -17,7 +21,7 @@ public class GitHubParser extends AbstractParser {
 
         //Types of link:
         //https://github.com/USERNAME/REPOSITORY/
-        return new ParseResult.GitHubUserRepository(splitUrl[2], splitUrl[3]);
+        return new ParseResult.GitHubUserRepository(splitUrl[POSITION_OF_USER], splitUrl[POSITION_OF_REPO]);
 
     }
 }

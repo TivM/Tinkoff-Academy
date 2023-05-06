@@ -1,7 +1,7 @@
 package ru.tinkoff.edu.java.parser;
 
 import java.net.URL;
-import org.springframework.lang.Nullable;
+import org.jetbrains.annotations.*;
 import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 
 public abstract class AbstractParser implements ParserInterface {
@@ -23,12 +23,8 @@ public abstract class AbstractParser implements ParserInterface {
         try {
             new URL(url).toURI();
             return true;
-        }
-
-        // If there was an Exception
-        // while creating URL object
-        catch (Exception e) {
-            return false;
+        } catch (Exception e) {  // If there was an Exception
+            return false;        // while creating URL object
         }
     }
 }

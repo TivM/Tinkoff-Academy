@@ -8,6 +8,7 @@ import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 public class StackOverflowParser extends AbstractParser {
     private static final String HOST = "stackoverflow.com";
     private static final Integer MIN_LENGTH = 4;
+    private static final Integer POSITION_OF_QUESTION_ID = 3;
 
     @Override
     protected ParseResult parseUrl(String[] splitUrl) {
@@ -17,7 +18,7 @@ public class StackOverflowParser extends AbstractParser {
 
         //Types of link:
         //https://stackoverflow.com/questions/ID/QUESTION
-        return new ParseResult.StackOverflowQuestionId(splitUrl[3]);
+        return new ParseResult.StackOverflowQuestionId(splitUrl[POSITION_OF_QUESTION_ID]);
 
     }
 }
