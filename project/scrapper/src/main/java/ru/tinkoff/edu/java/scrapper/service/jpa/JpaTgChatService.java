@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.service.jpa;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.entity.TgChat;
@@ -22,7 +21,7 @@ public class JpaTgChatService implements TgChatService {
     @Override
     public void unregister(long tgChatId) {
         TgChat tgChat = jpaTgChatRepository.findById(tgChatId).orElseThrow(
-                () -> new ResourceNotFoundException("chat doesn't exists")
+            () -> new ResourceNotFoundException("chat doesn't exists")
         );
         jpaTgChatRepository.deleteById(tgChat.getId());
     }

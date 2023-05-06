@@ -31,9 +31,10 @@ public class JooqAccessConfig {
 
     @Bean
     public JooqSubscriptionRepository jooqSubscriptionRepository(
-            DSLContext dslContext,
-            JooqLinkRepository linkRepository,
-            JooqTgChatRepository tgChatRepository) {
+        DSLContext dslContext,
+        JooqLinkRepository linkRepository,
+        JooqTgChatRepository tgChatRepository
+    ) {
 
         return new JooqSubscriptionRepository(dslContext, linkRepository, tgChatRepository);
     }
@@ -45,22 +46,23 @@ public class JooqAccessConfig {
 
     @Bean
     public JooqLinkService jooqLinkService(
-            JooqLinkRepository linkRepository,
-            JooqSubscriptionRepository subscriptionRepository,
-            Parser linkParser) {
+        JooqLinkRepository linkRepository,
+        JooqSubscriptionRepository subscriptionRepository,
+        Parser linkParser
+    ) {
         return new JooqLinkService(linkRepository, subscriptionRepository, linkParser);
     }
 
     @Bean
     public JooqLinksUpdaterImpl jooqLinksUpdaterImpl(
-            GitHubClient gitHubClient,
-            StackOverflowClient stackOverflowClient,
-            JooqLinkRepository linkRepository,
-            JooqSubscriptionRepository subscriptionRepository,
-            Parser linkParser,
-            BotNotifier botNotifier
+        GitHubClient gitHubClient,
+        StackOverflowClient stackOverflowClient,
+        JooqLinkRepository linkRepository,
+        JooqSubscriptionRepository subscriptionRepository,
+        Parser linkParser,
+        BotNotifier botNotifier
     ) {
         return new JooqLinksUpdaterImpl(
-                gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser, botNotifier);
+            gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser, botNotifier);
     }
 }

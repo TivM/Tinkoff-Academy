@@ -1,5 +1,9 @@
 package ru.tinkoff.edu.java.scrapper.service.jpa;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +20,6 @@ import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinksUpdater;
 import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 @Slf4j
 @RequiredArgsConstructor
 public class JpaLinksUpdaterImpl implements LinksUpdater {
@@ -30,7 +29,6 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
     private final JpaLinkRepository linkRepository;
     private final Parser linkParser;
     private final BotNotifier botNotifier;
-
 
     @Override
     @Transactional
@@ -53,28 +51,27 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
             }
 
             linkRepository.update(
-                    link.getLastCheckTime(),
-                    link.getUpdatedAt(),
-                    link.getUpdatesCount(),
-                    link.getId());
+                link.getLastCheckTime(),
+                link.getUpdatedAt(),
+                link.getUpdatesCount(),
+                link.getId()
+            );
         }
     }
 
-
     private void checkGitHub(ParseResult.GitHubUserRepository gitHubUserRepository, Link link) {
         GitHubApiResponse gitHubResponse = gitHubClient
-                .fetchRepository(gitHubUserRepository.userName(), gitHubUserRepository.repository());
+            .fetchRepository(gitHubUserRepository.userName(), gitHubUserRepository.repository());
 
         checkGitHubUpdates(gitHubResponse, link);
     }
 
     private void checkStackOverflow(ParseResult.StackOverflowQuestionId stackOverflowQuestionId, Link link) {
         StackOverflowApiResponse stackOverflowApiResponse = stackOverflowClient
-                .fetchQuestion(stackOverflowQuestionId.questionId());
+            .fetchQuestion(stackOverflowQuestionId.questionId());
 
         checkStackOverflowUpdates(stackOverflowApiResponse, link);
     }
-
 
     private void checkGitHubUpdates(GitHubApiResponse response, Link link) {
         OffsetDateTime updatedAt = response.updatedAt();
@@ -87,7 +84,8 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
             link.setUpdatesCount(issuesCount);
 
             //.toInstant 'cause hibernate can't normally map OffsetDateTime
-        } else if (!Objects.equals(link.getUpdatedAt().toInstant().toString(), updatedAt.toString()) || !sameUpdatesCount) {
+        } else if (!Objects.equals(link.getUpdatedAt().toInstant().toString(), updatedAt.toString()) ||
+            !sameUpdatesCount) {
             link.setUpdatedAt(updatedAt);
             String description;
             if (!sameUpdatesCount) {
@@ -99,7 +97,6 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
             botNotifier.notifyBot(link, description, findChatsByLinkId(link.getId()));
         }
     }
-
 
     private void checkStackOverflowUpdates(StackOverflowApiResponse response, Link link) {
         OffsetDateTime updatedAt = response.items().get(0).lastActivityDate();
@@ -126,10 +123,9 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
         }
     }
 
-
     private Set<TgChat> findChatsByLinkId(long linkId) {
         Link link = linkRepository.findById(linkId)
-                .orElseThrow(() -> new ResourceNotFoundException("Link doesn't exist"));
+            .orElseThrow(() -> new ResourceNotFoundException("Link doesn't exist"));
 
         return link.getTgChats();
 

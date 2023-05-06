@@ -1,8 +1,12 @@
 package ru.tinkoff.edu.java.scrapper.configuration;
 
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -27,15 +31,15 @@ public class RabbitMQConfig {
     @Bean
     public Queue queue() {
         return QueueBuilder.nonDurable(applicationConfig.queueName())
-                .withArgument("x-dead-letter-exchange", applicationConfig.exchangeName() + ".dlx")
-                .build();
+            .withArgument("x-dead-letter-exchange", applicationConfig.exchangeName() + ".dlx")
+            .build();
     }
 
     @Bean
     public Binding binding() {
         return BindingBuilder.bind(queue())
-                .to(directExchange())
-                .with(applicationConfig.queueName());
+            .to(directExchange())
+            .with(applicationConfig.queueName());
     }
 
     @Bean

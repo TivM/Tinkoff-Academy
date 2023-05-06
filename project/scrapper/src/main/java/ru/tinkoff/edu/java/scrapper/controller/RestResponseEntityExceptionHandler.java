@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.controller;
 
-
+import java.util.Arrays;
 import org.openapitools.model.ApiErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,18 +17,17 @@ import ru.tinkoff.edu.java.scrapper.exception.IncorrectRequestParameterException
 import ru.tinkoff.edu.java.scrapper.exception.LinkParserException;
 import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 
-import java.util.Arrays;
-
-
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends
-        ResponseEntityExceptionHandler {
+    ResponseEntityExceptionHandler {
 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatusCode status,
-                                                                  WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+        HttpMessageNotReadableException ex,
+        HttpHeaders headers,
+        HttpStatusCode status,
+        WebRequest request
+    ) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Incorrect request body");
         response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
@@ -38,7 +37,6 @@ public class RestResponseEntityExceptionHandler extends
 
         return new ResponseEntity<>(response, status);
     }
-
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class,})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
@@ -63,7 +61,6 @@ public class RestResponseEntityExceptionHandler extends
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
 
     @ExceptionHandler({ResourceNotFoundException.class,})
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {

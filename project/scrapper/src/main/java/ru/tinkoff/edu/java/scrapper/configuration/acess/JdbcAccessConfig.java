@@ -35,8 +35,9 @@ public class JdbcAccessConfig {
 
     @Bean
     public JdbcSubscriptionRepository jdbcSubscriptionRepository(
-            JdbcLinkRepository linkRepository,
-            JdbcTgChatRepository tgChatRepository) {
+        JdbcLinkRepository linkRepository,
+        JdbcTgChatRepository tgChatRepository
+    ) {
         return new JdbcSubscriptionRepository(linkRepository, tgChatRepository, jdbcTemplate);
     }
 
@@ -47,24 +48,24 @@ public class JdbcAccessConfig {
 
     @Bean
     public JdbcLinkService jdbcLinkService(
-            JdbcLinkRepository linkRepository,
-            JdbcSubscriptionRepository subscriptionRepository,
-            Parser linkParser) {
+        JdbcLinkRepository linkRepository,
+        JdbcSubscriptionRepository subscriptionRepository,
+        Parser linkParser
+    ) {
         return new JdbcLinkService(linkRepository, subscriptionRepository, linkParser);
     }
 
     @Bean
     public JdbcLinksUpdaterImpl jdbcLinksUpdaterImpl(
-            GitHubClient gitHubClient,
-            StackOverflowClient stackOverflowClient,
-            JdbcLinkRepository linkRepository,
-            JdbcSubscriptionRepository subscriptionRepository,
-            Parser linkParser,
-            BotNotifier botNotifier
+        GitHubClient gitHubClient,
+        StackOverflowClient stackOverflowClient,
+        JdbcLinkRepository linkRepository,
+        JdbcSubscriptionRepository subscriptionRepository,
+        Parser linkParser,
+        BotNotifier botNotifier
     ) {
         return new JdbcLinksUpdaterImpl(
-                gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser, botNotifier);
+            gitHubClient, stackOverflowClient, linkRepository, subscriptionRepository, linkParser, botNotifier);
     }
-
 
 }

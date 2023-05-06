@@ -1,5 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.tinkoff.edu.java.parser.Parser;
@@ -14,10 +17,6 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinksUpdater;
 import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Objects;
-
 @Slf4j
 @RequiredArgsConstructor
 public class JdbcLinksUpdaterImpl implements LinksUpdater {
@@ -28,7 +27,6 @@ public class JdbcLinksUpdaterImpl implements LinksUpdater {
     private final JdbcSubscriptionRepository subscriptionRepository;
     private final Parser linkParser;
     private final BotNotifier botNotifier;
-
 
     @Override
     public void updateLinks(int limit) {
@@ -54,21 +52,19 @@ public class JdbcLinksUpdaterImpl implements LinksUpdater {
         }
     }
 
-
     private void checkGitHub(ParseResult.GitHubUserRepository gitHubUserRepository, Link link) {
         GitHubApiResponse gitHubResponse = gitHubClient
-                .fetchRepository(gitHubUserRepository.userName(), gitHubUserRepository.repository());
+            .fetchRepository(gitHubUserRepository.userName(), gitHubUserRepository.repository());
 
         checkGitHubUpdates(gitHubResponse, link);
     }
 
     private void checkStackOverflow(ParseResult.StackOverflowQuestionId stackOverflowQuestionId, Link link) {
         StackOverflowApiResponse stackOverflowApiResponse = stackOverflowClient
-                .fetchQuestion(stackOverflowQuestionId.questionId());
+            .fetchQuestion(stackOverflowQuestionId.questionId());
 
         checkStackOverflowUpdates(stackOverflowApiResponse, link);
     }
-
 
     private void checkGitHubUpdates(GitHubApiResponse response, Link link) {
         OffsetDateTime updatedAt = response.updatedAt();
@@ -90,13 +86,12 @@ public class JdbcLinksUpdaterImpl implements LinksUpdater {
             }
 
             botNotifier.notifyBot(
-                    link,
-                    description,
-                    subscriptionRepository.findChatsByLinkId(link.getId())
+                link,
+                description,
+                subscriptionRepository.findChatsByLinkId(link.getId())
             );
         }
     }
-
 
     private void checkStackOverflowUpdates(StackOverflowApiResponse response, Link link) {
         OffsetDateTime updatedAt = response.items().get(0).lastActivityDate();
@@ -117,9 +112,9 @@ public class JdbcLinksUpdaterImpl implements LinksUpdater {
             }
 
             botNotifier.notifyBot(
-                    link,
-                    description,
-                    subscriptionRepository.findChatsByLinkId(link.getId())
+                link,
+                description,
+                subscriptionRepository.findChatsByLinkId(link.getId())
             );
 
         }

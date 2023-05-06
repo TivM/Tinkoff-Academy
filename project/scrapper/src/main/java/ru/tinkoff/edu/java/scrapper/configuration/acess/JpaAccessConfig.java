@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.configuration.acess;
 
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,29 +19,30 @@ public class JpaAccessConfig {
 
     @Bean
     public JpaLinkService linkService(
-            JpaLinkRepository linkRepository,
-            JpaTgChatRepository tgChatRepository,
-            Parser linkParser
+        JpaLinkRepository linkRepository,
+        JpaTgChatRepository tgChatRepository,
+        Parser linkParser
     ) {
         return new JpaLinkService(linkRepository, tgChatRepository, linkParser);
     }
 
     @Bean
     public JpaTgChatService tgChatService(
-            JpaTgChatRepository tgChatRepository) {
+        JpaTgChatRepository tgChatRepository
+    ) {
         return new JpaTgChatService(tgChatRepository);
     }
 
     @Bean
     public JpaLinksUpdaterImpl linksUpdater(
-            GitHubClient gitHubClient,
-            StackOverflowClient stackOverflowClient,
-            JpaLinkRepository linkRepository,
-            Parser linkParser,
-            BotNotifier botNotifier
+        GitHubClient gitHubClient,
+        StackOverflowClient stackOverflowClient,
+        JpaLinkRepository linkRepository,
+        Parser linkParser,
+        BotNotifier botNotifier
     ) {
         return new JpaLinksUpdaterImpl(
-                gitHubClient, stackOverflowClient, linkRepository, linkParser, botNotifier);
+            gitHubClient, stackOverflowClient, linkRepository, linkParser, botNotifier);
     }
 
 }

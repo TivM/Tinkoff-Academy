@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.service.jooq;
 
+import java.net.URI;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.parser.Parser;
@@ -10,17 +12,12 @@ import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
-import java.net.URI;
-import java.util.Collection;
-
-
 @RequiredArgsConstructor
 public class JooqLinkService implements LinkService {
 
     private final JooqLinkRepository linkRepository;
     private final JooqSubscriptionRepository subscriptionRepository;
     private final Parser linkParser;
-
 
     @Override
     @Transactional
@@ -30,7 +27,7 @@ public class JooqLinkService implements LinkService {
         }
 
         Link link = linkRepository.findLinkByUrl(url.toString())
-                .orElseGet(() -> linkRepository.save(new Link().setUrl(url.toString())));
+            .orElseGet(() -> linkRepository.save(new Link().setUrl(url.toString())));
 
         subscriptionRepository.addLinkToChat(tgChatId, link);
 
@@ -45,7 +42,7 @@ public class JooqLinkService implements LinkService {
         }
 
         Link link = linkRepository.findLinkByUrl(url.toString())
-                .orElseThrow(() -> new ResourceNotFoundException("Link not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Link not found"));
 
         subscriptionRepository.deleteLinkFromChat(tgChatId, link);
 

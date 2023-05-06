@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.service.jpa;
 
+import java.net.URI;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,10 +14,6 @@ import ru.tinkoff.edu.java.scrapper.exception.ResourceNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaTgChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
-
-import java.net.URI;
-import java.util.Collection;
-
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,10 +33,9 @@ public class JpaLinkService implements LinkService {
         }
         Link link = new Link().setUrl(url.toString());
 
-
         TgChat tgChat = tgChatRepository
-                .findById(tgChatId)
-                .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
+            .findById(tgChatId)
+            .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
 
         tgChat.getLinks().add(link);
 
@@ -49,12 +46,12 @@ public class JpaLinkService implements LinkService {
     @Transactional
     public Link remove(long tgChatId, URI url) {
         Link link = linkRepository
-                .findByUrl(url.toString())
-                .orElseThrow(() -> new ResourceNotFoundException("Link doesn't exist"));
+            .findByUrl(url.toString())
+            .orElseThrow(() -> new ResourceNotFoundException("Link doesn't exist"));
 
         TgChat tgChat = tgChatRepository
-                .findById(tgChatId)
-                .orElseThrow(() -> new ResourceNotFoundException("Chat doesn't exist"));
+            .findById(tgChatId)
+            .orElseThrow(() -> new ResourceNotFoundException("Chat doesn't exist"));
 
         tgChat.getLinks().remove(link);
 
@@ -65,8 +62,8 @@ public class JpaLinkService implements LinkService {
     @Transactional
     public Collection<Link> listAll(long tgChatId) {
         TgChat tgChat = tgChatRepository
-                .findById(tgChatId)
-                .orElseThrow(() -> new ResourceNotFoundException("Chat doesn't exist"));
+            .findById(tgChatId)
+            .orElseThrow(() -> new ResourceNotFoundException("Chat doesn't exist"));
 
         return tgChat.getLinks();
     }
