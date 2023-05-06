@@ -34,42 +34,27 @@ import java.util.function.Function;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Link extends TableImpl<LinkRecord> {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * The reference instance of <code>LINK</code>
      */
     public static final Link LINK = new Link();
-
-    /**
-     * The class holding records for this type
-     */
-    @Override
-    @NotNull
-    public Class<LinkRecord> getRecordType() {
-        return LinkRecord.class;
-    }
-
+    private static final long serialVersionUID = 1L;
     /**
      * The column <code>LINK.ID</code>.
      */
     public final TableField<LinkRecord, Long> ID = createField(DSL.name("ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
-
     /**
      * The column <code>LINK.URL</code>.
      */
     public final TableField<LinkRecord, String> URL = createField(DSL.name("URL"), SQLDataType.VARCHAR(1000000000).nullable(false), this, "");
-
     /**
      * The column <code>LINK.LAST_CHECK_TIME</code>.
      */
     public final TableField<LinkRecord, OffsetDateTime> LAST_CHECK_TIME = createField(DSL.name("LAST_CHECK_TIME"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "");
-
     /**
      * The column <code>LINK.UPDATED_AT</code>.
      */
     public final TableField<LinkRecord, OffsetDateTime> UPDATED_AT = createField(DSL.name("UPDATED_AT"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "");
-
     /**
      * The column <code>LINK.UPDATES_COUNT</code>.
      */
@@ -106,6 +91,15 @@ public class Link extends TableImpl<LinkRecord> {
 
     public <O extends Record> Link(Table<O> child, ForeignKey<O, LinkRecord> key) {
         super(child, key, LINK);
+    }
+
+    /**
+     * The class holding records for this type
+     */
+    @Override
+    @NotNull
+    public Class<LinkRecord> getRecordType() {
+        return LinkRecord.class;
     }
 
     @Override

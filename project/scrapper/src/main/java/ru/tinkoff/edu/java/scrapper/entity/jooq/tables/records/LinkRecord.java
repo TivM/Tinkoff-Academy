@@ -35,10 +35,39 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>LINK.ID</code>.
+     * Create a detached LinkRecord
      */
-    public void setId(@NotNull Long value) {
-        set(0, value);
+    public LinkRecord() {
+        super(Link.LINK);
+    }
+
+    /**
+     * Create a detached, initialised LinkRecord
+     */
+    @ConstructorProperties({"id", "url", "lastCheckTime", "updatedAt", "updatesCount"})
+    public LinkRecord(@NotNull Long id, @NotNull String url, @Nullable OffsetDateTime lastCheckTime, @Nullable OffsetDateTime updatedAt, @Nullable Integer updatesCount) {
+        super(Link.LINK);
+
+        setId(id);
+        setUrl(url);
+        setLastCheckTime(lastCheckTime);
+        setUpdatedAt(updatedAt);
+        setUpdatesCount(updatesCount);
+    }
+
+    /**
+     * Create a detached, initialised LinkRecord
+     */
+    public LinkRecord(ru.tinkoff.edu.java.scrapper.entity.jooq.tables.pojos.Link value) {
+        super(Link.LINK);
+
+        if (value != null) {
+            setId(value.getId());
+            setUrl(value.getUrl());
+            setLastCheckTime(value.getLastCheckTime());
+            setUpdatedAt(value.getUpdatedAt());
+            setUpdatesCount(value.getUpdatesCount());
+        }
     }
 
     /**
@@ -50,10 +79,10 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     }
 
     /**
-     * Setter for <code>LINK.URL</code>.
+     * Setter for <code>LINK.ID</code>.
      */
-    public void setUrl(@NotNull String value) {
-        set(1, value);
+    public void setId(@NotNull Long value) {
+        set(0, value);
     }
 
     /**
@@ -67,10 +96,10 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     }
 
     /**
-     * Setter for <code>LINK.LAST_CHECK_TIME</code>.
+     * Setter for <code>LINK.URL</code>.
      */
-    public void setLastCheckTime(@Nullable OffsetDateTime value) {
-        set(2, value);
+    public void setUrl(@NotNull String value) {
+        set(1, value);
     }
 
     /**
@@ -82,10 +111,10 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     }
 
     /**
-     * Setter for <code>LINK.UPDATED_AT</code>.
+     * Setter for <code>LINK.LAST_CHECK_TIME</code>.
      */
-    public void setUpdatedAt(@Nullable OffsetDateTime value) {
-        set(3, value);
+    public void setLastCheckTime(@Nullable OffsetDateTime value) {
+        set(2, value);
     }
 
     /**
@@ -96,12 +125,20 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
         return (OffsetDateTime) get(3);
     }
 
+    // -------------------------------------------------------------------------
+    // Primary key information
+    // -------------------------------------------------------------------------
+
     /**
-     * Setter for <code>LINK.UPDATES_COUNT</code>.
+     * Setter for <code>LINK.UPDATED_AT</code>.
      */
-    public void setUpdatesCount(@Nullable Integer value) {
-        set(4, value);
+    public void setUpdatedAt(@Nullable OffsetDateTime value) {
+        set(3, value);
     }
+
+    // -------------------------------------------------------------------------
+    // Record5 type implementation
+    // -------------------------------------------------------------------------
 
     /**
      * Getter for <code>LINK.UPDATES_COUNT</code>.
@@ -111,19 +148,18 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
         return (Integer) get(4);
     }
 
-    // -------------------------------------------------------------------------
-    // Primary key information
-    // -------------------------------------------------------------------------
+    /**
+     * Setter for <code>LINK.UPDATES_COUNT</code>.
+     */
+    public void setUpdatesCount(@Nullable Integer value) {
+        set(4, value);
+    }
 
     @Override
     @NotNull
     public Record1<Long> key() {
         return (Record1) super.key();
     }
-
-    // -------------------------------------------------------------------------
-    // Record5 type implementation
-    // -------------------------------------------------------------------------
 
     @Override
     @NotNull
@@ -248,6 +284,10 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
         return this;
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     @NotNull
     public LinkRecord value4(@Nullable OffsetDateTime value) {
@@ -271,45 +311,5 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
         value4(value4);
         value5(value5);
         return this;
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Create a detached LinkRecord
-     */
-    public LinkRecord() {
-        super(Link.LINK);
-    }
-
-    /**
-     * Create a detached, initialised LinkRecord
-     */
-    @ConstructorProperties({"id", "url", "lastCheckTime", "updatedAt", "updatesCount"})
-    public LinkRecord(@NotNull Long id, @NotNull String url, @Nullable OffsetDateTime lastCheckTime, @Nullable OffsetDateTime updatedAt, @Nullable Integer updatesCount) {
-        super(Link.LINK);
-
-        setId(id);
-        setUrl(url);
-        setLastCheckTime(lastCheckTime);
-        setUpdatedAt(updatedAt);
-        setUpdatesCount(updatesCount);
-    }
-
-    /**
-     * Create a detached, initialised LinkRecord
-     */
-    public LinkRecord(ru.tinkoff.edu.java.scrapper.entity.jooq.tables.pojos.Link value) {
-        super(Link.LINK);
-
-        if (value != null) {
-            setId(value.getId());
-            setUrl(value.getUrl());
-            setLastCheckTime(value.getLastCheckTime());
-            setUpdatedAt(value.getUpdatedAt());
-            setUpdatesCount(value.getUpdatesCount());
-        }
     }
 }

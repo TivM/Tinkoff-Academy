@@ -24,20 +24,6 @@ import java.sql.SQLException;
 @Testcontainers
 @ContextConfiguration(classes = IntegrationEnvironment.IntegrationEnvironmentConfiguration.class)
 public abstract class IntegrationEnvironment {
-    @TestConfiguration
-    static class IntegrationEnvironmentConfiguration {
-
-        @Bean
-        public DataSource dataSource() {
-
-            return DataSourceBuilder.create()
-                    .url(DB_CONTAINER.getJdbcUrl())
-                    .username(DB_CONTAINER.getUsername())
-                    .password(DB_CONTAINER.getPassword())
-                    .build();
-        }
-    }
-
     public static JdbcDatabaseContainer<?> DB_CONTAINER;
 
     static {
@@ -70,6 +56,20 @@ public abstract class IntegrationEnvironment {
         registry.add("spring.datasource.url", DB_CONTAINER::getJdbcUrl);
         registry.add("spring.datasource.username", DB_CONTAINER::getUsername);
         registry.add("spring.datasource.password", DB_CONTAINER::getPassword);
+    }
+
+    @TestConfiguration
+    static class IntegrationEnvironmentConfiguration {
+
+        @Bean
+        public DataSource dataSource() {
+
+            return DataSourceBuilder.create()
+                    .url(DB_CONTAINER.getJdbcUrl())
+                    .username(DB_CONTAINER.getUsername())
+                    .password(DB_CONTAINER.getPassword())
+                    .build();
+        }
     }
 
 }

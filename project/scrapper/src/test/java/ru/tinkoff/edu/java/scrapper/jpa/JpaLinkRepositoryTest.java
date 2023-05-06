@@ -12,7 +12,6 @@ import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaLinkRepository;
 
-import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -82,17 +81,6 @@ public class JpaLinkRepositoryTest extends IntegrationEnvironment {
         assertThat(jpaLinkRepository.findCheckedLongTimeAgoLinks(5)).isEmpty();
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback
-//    @Sql("/sql/add_subscriptions.sql")
-//    public void findChatsByLinkId__dbHasChatsById_success() {
-//        assertAll(
-//                () -> assertThat(jpaLinkRepository.findChatsByLinkId(1L)).hasSize(2),
-//                () -> assertThat(jpaLinkRepository.findChatsByLinkId(2L)).hasSize(1)
-//
-//        );
-//    }
 
     @Test
     @Transactional

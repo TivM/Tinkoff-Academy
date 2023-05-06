@@ -16,6 +16,7 @@ public class HelpCommand implements CommandInterface {
     private final List<CommandInterface> commands;
     private final MessageSenderImpl messageSender;
 
+    private static final String helpTemplate = "help.ftl";
 
     @Override
     public String command() {
@@ -29,7 +30,7 @@ public class HelpCommand implements CommandInterface {
 
     @Override
     public SendMessage process(Update update) {
-        return messageSender.sendTemplateUpdate(update, "help.ftl", Map.of("commands", commands));
+        return messageSender.sendTemplateUpdate(update, helpTemplate, Map.of("commands", commands));
     }
 
     @Override

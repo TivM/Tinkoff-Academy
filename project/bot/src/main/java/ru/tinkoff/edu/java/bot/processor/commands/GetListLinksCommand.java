@@ -19,6 +19,8 @@ public class GetListLinksCommand implements CommandInterface {
     private final MessageSenderImpl messageSender;
     private final LinkServiceImpl linkService;
 
+    private static final String linksTemplate = "links.ftl";
+
     @Override
     public String command() {
         return "/links";
@@ -36,7 +38,7 @@ public class GetListLinksCommand implements CommandInterface {
            return messageSender.sendMessage(update,
                    "You are not tracking links yet. Try using /track to start tracking links");
         }
-        return messageSender.sendTemplateUpdate(update, "links.ftl", Map.of("links", links));
+        return messageSender.sendTemplateUpdate(update, linksTemplate, Map.of("links", links));
     }
 
     @Override

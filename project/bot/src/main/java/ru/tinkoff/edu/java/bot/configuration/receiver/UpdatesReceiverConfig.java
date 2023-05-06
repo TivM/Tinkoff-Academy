@@ -5,14 +5,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
-import ru.tinkoff.edu.java.bot.service.receiver.HttpUpdatesReceiver;
+import ru.tinkoff.edu.java.bot.service.receiver.UpdatesReceiver;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false")
-public class HttpUpdatesReceiverConfig {
-
+public class UpdatesReceiverConfig {
     @Bean
-    public HttpUpdatesReceiver httpUpdatesReceiver(TelegramBot telegramBot, MessageSender messageSender){
-        return new HttpUpdatesReceiver(telegramBot, messageSender);
+    public UpdatesReceiver httpUpdatesReceiver(TelegramBot telegramBot, MessageSender messageSender) {
+        return new UpdatesReceiver(telegramBot, messageSender);
     }
 }

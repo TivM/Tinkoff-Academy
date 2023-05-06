@@ -26,6 +26,8 @@ public class MessageSenderTest {
     static Configuration templateResolver;
     MessageSenderImpl messageSender = new MessageSenderImpl(templateResolver);
 
+    private static final String linksTemplate = "links.ftl";
+
 
     @BeforeAll
     @SneakyThrows
@@ -50,7 +52,7 @@ public class MessageSenderTest {
         );
 
         //when
-        SendMessage message = messageSender.sendTemplateUpdate(update, "links.ftl", Map.of("links", links));
+        SendMessage message = messageSender.sendTemplateUpdate(update, linksTemplate, Map.of("links", links));
 
         //then
         Object text = message.getParameters().get("text")

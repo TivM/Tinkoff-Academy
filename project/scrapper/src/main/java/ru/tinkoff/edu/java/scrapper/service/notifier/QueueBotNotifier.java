@@ -7,11 +7,10 @@ import ru.tinkoff.edu.java.scrapper.client.dto.LinkUpdateRequest;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.entity.TgChat;
 
-import java.net.URI;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class QueueBotNotifier implements BotNotifier{
+public class QueueBotNotifier implements BotNotifier {
 
     private final RabbitTemplate template;
     private final Queue queue;

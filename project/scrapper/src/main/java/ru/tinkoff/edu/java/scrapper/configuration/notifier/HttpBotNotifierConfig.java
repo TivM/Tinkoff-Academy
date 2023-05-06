@@ -11,7 +11,7 @@ import ru.tinkoff.edu.java.scrapper.service.notifier.HttpBotNotifier;
 public class HttpBotNotifierConfig {
 
     @Bean
-    public HttpBotNotifier httpBotNotifier(BotClient botClient){
+    public HttpBotNotifier httpBotNotifier(BotClient botClient) {
         return new HttpBotNotifier(botClient);
     }
 }

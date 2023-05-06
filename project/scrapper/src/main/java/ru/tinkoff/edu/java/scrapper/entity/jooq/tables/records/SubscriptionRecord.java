@@ -31,10 +31,33 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>SUBSCRIPTION.TG_CHAT_ID</code>.
+     * Create a detached SubscriptionRecord
      */
-    public void setTgChatId(@NotNull Long value) {
-        set(0, value);
+    public SubscriptionRecord() {
+        super(Subscription.SUBSCRIPTION);
+    }
+
+    /**
+     * Create a detached, initialised SubscriptionRecord
+     */
+    @ConstructorProperties({"tgChatId", "linkId"})
+    public SubscriptionRecord(@NotNull Long tgChatId, @NotNull Long linkId) {
+        super(Subscription.SUBSCRIPTION);
+
+        setTgChatId(tgChatId);
+        setLinkId(linkId);
+    }
+
+    /**
+     * Create a detached, initialised SubscriptionRecord
+     */
+    public SubscriptionRecord(ru.tinkoff.edu.java.scrapper.entity.jooq.tables.pojos.Subscription value) {
+        super(Subscription.SUBSCRIPTION);
+
+        if (value != null) {
+            setTgChatId(value.getTgChatId());
+            setLinkId(value.getLinkId());
+        }
     }
 
     /**
@@ -46,12 +69,20 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
         return (Long) get(0);
     }
 
+    // -------------------------------------------------------------------------
+    // Primary key information
+    // -------------------------------------------------------------------------
+
     /**
-     * Setter for <code>SUBSCRIPTION.LINK_ID</code>.
+     * Setter for <code>SUBSCRIPTION.TG_CHAT_ID</code>.
      */
-    public void setLinkId(@NotNull Long value) {
-        set(1, value);
+    public void setTgChatId(@NotNull Long value) {
+        set(0, value);
     }
+
+    // -------------------------------------------------------------------------
+    // Record2 type implementation
+    // -------------------------------------------------------------------------
 
     /**
      * Getter for <code>SUBSCRIPTION.LINK_ID</code>.
@@ -62,19 +93,18 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
         return (Long) get(1);
     }
 
-    // -------------------------------------------------------------------------
-    // Primary key information
-    // -------------------------------------------------------------------------
+    /**
+     * Setter for <code>SUBSCRIPTION.LINK_ID</code>.
+     */
+    public void setLinkId(@NotNull Long value) {
+        set(1, value);
+    }
 
     @Override
     @NotNull
     public Record2<Long, Long> key() {
         return (Record2) super.key();
     }
-
-    // -------------------------------------------------------------------------
-    // Record2 type implementation
-    // -------------------------------------------------------------------------
 
     @Override
     @NotNull
@@ -124,6 +154,10 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
         return getLinkId();
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     @NotNull
     public SubscriptionRecord value1(@NotNull Long value) {
@@ -144,39 +178,5 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
         value1(value1);
         value2(value2);
         return this;
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Create a detached SubscriptionRecord
-     */
-    public SubscriptionRecord() {
-        super(Subscription.SUBSCRIPTION);
-    }
-
-    /**
-     * Create a detached, initialised SubscriptionRecord
-     */
-    @ConstructorProperties({"tgChatId", "linkId"})
-    public SubscriptionRecord(@NotNull Long tgChatId, @NotNull Long linkId) {
-        super(Subscription.SUBSCRIPTION);
-
-        setTgChatId(tgChatId);
-        setLinkId(linkId);
-    }
-
-    /**
-     * Create a detached, initialised SubscriptionRecord
-     */
-    public SubscriptionRecord(ru.tinkoff.edu.java.scrapper.entity.jooq.tables.pojos.Subscription value) {
-        super(Subscription.SUBSCRIPTION);
-
-        if (value != null) {
-            setTgChatId(value.getTgChatId());
-            setLinkId(value.getLinkId());
-        }
     }
 }

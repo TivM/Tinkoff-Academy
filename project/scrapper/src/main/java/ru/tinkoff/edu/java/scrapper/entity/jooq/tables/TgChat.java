@@ -32,27 +32,15 @@ import java.util.function.Function;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class TgChat extends TableImpl<TgChatRecord> {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * The reference instance of <code>TG_CHAT</code>
      */
     public static final TgChat TG_CHAT = new TgChat();
-
-    /**
-     * The class holding records for this type
-     */
-    @Override
-    @NotNull
-    public Class<TgChatRecord> getRecordType() {
-        return TgChatRecord.class;
-    }
-
+    private static final long serialVersionUID = 1L;
     /**
      * The column <code>TG_CHAT.ID</code>.
      */
     public final TableField<TgChatRecord, Long> ID = createField(DSL.name("ID"), SQLDataType.BIGINT.nullable(false), this, "");
-
     /**
      * The column <code>TG_CHAT.CREATED_AT</code>.
      */
@@ -89,6 +77,15 @@ public class TgChat extends TableImpl<TgChatRecord> {
 
     public <O extends Record> TgChat(Table<O> child, ForeignKey<O, TgChatRecord> key) {
         super(child, key, TG_CHAT);
+    }
+
+    /**
+     * The class holding records for this type
+     */
+    @Override
+    @NotNull
+    public Class<TgChatRecord> getRecordType() {
+        return TgChatRecord.class;
     }
 
     @Override
