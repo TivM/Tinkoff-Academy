@@ -33,31 +33,21 @@ import java.util.function.Function;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Subscription extends TableImpl<SubscriptionRecord> {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * The reference instance of <code>SUBSCRIPTION</code>
      */
     public static final Subscription SUBSCRIPTION = new Subscription();
-
-    /**
-     * The class holding records for this type
-     */
-    @Override
-    @NotNull
-    public Class<SubscriptionRecord> getRecordType() {
-        return SubscriptionRecord.class;
-    }
-
+    private static final long serialVersionUID = 1L;
     /**
      * The column <code>SUBSCRIPTION.TG_CHAT_ID</code>.
      */
     public final TableField<SubscriptionRecord, Long> TG_CHAT_ID = createField(DSL.name("TG_CHAT_ID"), SQLDataType.BIGINT.nullable(false), this, "");
-
     /**
      * The column <code>SUBSCRIPTION.LINK_ID</code>.
      */
     public final TableField<SubscriptionRecord, Long> LINK_ID = createField(DSL.name("LINK_ID"), SQLDataType.BIGINT.nullable(false), this, "");
+    private transient TgChat _tgChat;
+    private transient Link _link;
 
     private Subscription(Name alias, Table<SubscriptionRecord> aliased) {
         this(alias, aliased, null);
@@ -92,6 +82,15 @@ public class Subscription extends TableImpl<SubscriptionRecord> {
         super(child, key, SUBSCRIPTION);
     }
 
+    /**
+     * The class holding records for this type
+     */
+    @Override
+    @NotNull
+    public Class<SubscriptionRecord> getRecordType() {
+        return SubscriptionRecord.class;
+    }
+
     @Override
     @NotNull
     public Schema getSchema() {
@@ -109,9 +108,6 @@ public class Subscription extends TableImpl<SubscriptionRecord> {
     public List<ForeignKey<SubscriptionRecord, ?>> getReferences() {
         return Arrays.asList(Keys.CONSTRAINT_9E, Keys.CONSTRAINT_9E7);
     }
-
-    private transient TgChat _tgChat;
-    private transient Link _link;
 
     /**
      * Get the implicit join path to the <code>PUBLIC.TG_CHAT</code> table.

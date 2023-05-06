@@ -10,36 +10,34 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 import ru.tinkoff.edu.java.bot.processor.commands.GetListLinksCommand;
 import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
-import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 import ru.tinkoff.edu.java.bot.service.LinkServiceImpl;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GetListOfLinksCommandTest {
 
-    @Mock
-    private MessageSenderImpl messageSender;
-
-    @Mock
-    private LinkServiceImpl linkService;
-
     @InjectMocks
     GetListLinksCommand getListLinksCommand;
+    @Mock
+    private MessageSenderImpl messageSender;
+    @Mock
+    private LinkServiceImpl linkService;
 
     @Test
     void process__callLinkServiceAndMessageSender_expectOneInvocation() {
         // given
         long tgChatId = 123;
         List<LinkResponse> links = List.of(new LinkResponse(1L, URI.create("github.com")));
-        var update= getUpdate(tgChatId);
+        var update = getUpdate(tgChatId);
 
         when(linkService.getAllLinks(tgChatId)).thenReturn(links);
 
@@ -56,11 +54,11 @@ public class GetListOfLinksCommandTest {
 
 
     @Test
-    void process__processGetAllLinksWithNoLinks_returnSpecialMessage(){
+    void process__processGetAllLinksWithNoLinks_returnSpecialMessage() {
         // given
         long tgChatId = 123;
         List<LinkResponse> links = List.of();
-        var update= getUpdate(tgChatId);
+        var update = getUpdate(tgChatId);
         SendMessage specialMessage = new SendMessage(update, "Special message");
 
         when(getListLinksCommand.process(update)).thenReturn(specialMessage);
@@ -74,7 +72,7 @@ public class GetListOfLinksCommandTest {
     }
 
 
-    Update getUpdate(Long tgChatId){
+    Update getUpdate(Long tgChatId) {
         //Update -> Message -> Chat -> Id
         Update update = new Update();
         Message message = new Message();
@@ -85,7 +83,6 @@ public class GetListOfLinksCommandTest {
         ReflectionTestUtils.setField(update, "message", message);
         return update;
     }
-
 
 
 }

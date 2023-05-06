@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class MigrationTest extends IntegrationEnvironment {
@@ -17,8 +17,8 @@ public class MigrationTest extends IntegrationEnvironment {
     @Transactional
     @Rollback
     void migrationsAreRunningSuccessfully() throws Exception {
-            //given
-        try (var connection = DB_CONTAINER.createConnection("")){
+        //given
+        try (var connection = DB_CONTAINER.createConnection("")) {
             PreparedStatement preparedStatementForUpdate = connection.prepareStatement
                     ("INSERT INTO tg_chat(id, created_at) VALUES (1, now())");
 

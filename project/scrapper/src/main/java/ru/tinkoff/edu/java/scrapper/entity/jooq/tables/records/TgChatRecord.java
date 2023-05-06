@@ -33,10 +33,33 @@ public class TgChatRecord extends UpdatableRecordImpl<TgChatRecord> implements R
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>TG_CHAT.ID</code>.
+     * Create a detached TgChatRecord
      */
-    public void setId(@NotNull Long value) {
-        set(0, value);
+    public TgChatRecord() {
+        super(TgChat.TG_CHAT);
+    }
+
+    /**
+     * Create a detached, initialised TgChatRecord
+     */
+    @ConstructorProperties({"id", "createdAt"})
+    public TgChatRecord(@NotNull Long id, @NotNull OffsetDateTime createdAt) {
+        super(TgChat.TG_CHAT);
+
+        setId(id);
+        setCreatedAt(createdAt);
+    }
+
+    /**
+     * Create a detached, initialised TgChatRecord
+     */
+    public TgChatRecord(ru.tinkoff.edu.java.scrapper.entity.jooq.tables.pojos.TgChat value) {
+        super(TgChat.TG_CHAT);
+
+        if (value != null) {
+            setId(value.getId());
+            setCreatedAt(value.getCreatedAt());
+        }
     }
 
     /**
@@ -48,12 +71,20 @@ public class TgChatRecord extends UpdatableRecordImpl<TgChatRecord> implements R
         return (Long) get(0);
     }
 
+    // -------------------------------------------------------------------------
+    // Primary key information
+    // -------------------------------------------------------------------------
+
     /**
-     * Setter for <code>TG_CHAT.CREATED_AT</code>.
+     * Setter for <code>TG_CHAT.ID</code>.
      */
-    public void setCreatedAt(@NotNull OffsetDateTime value) {
-        set(1, value);
+    public void setId(@NotNull Long value) {
+        set(0, value);
     }
+
+    // -------------------------------------------------------------------------
+    // Record2 type implementation
+    // -------------------------------------------------------------------------
 
     /**
      * Getter for <code>TG_CHAT.CREATED_AT</code>.
@@ -64,19 +95,18 @@ public class TgChatRecord extends UpdatableRecordImpl<TgChatRecord> implements R
         return (OffsetDateTime) get(1);
     }
 
-    // -------------------------------------------------------------------------
-    // Primary key information
-    // -------------------------------------------------------------------------
+    /**
+     * Setter for <code>TG_CHAT.CREATED_AT</code>.
+     */
+    public void setCreatedAt(@NotNull OffsetDateTime value) {
+        set(1, value);
+    }
 
     @Override
     @NotNull
     public Record1<Long> key() {
         return (Record1) super.key();
     }
-
-    // -------------------------------------------------------------------------
-    // Record2 type implementation
-    // -------------------------------------------------------------------------
 
     @Override
     @NotNull
@@ -126,6 +156,10 @@ public class TgChatRecord extends UpdatableRecordImpl<TgChatRecord> implements R
         return getCreatedAt();
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     @NotNull
     public TgChatRecord value1(@NotNull Long value) {
@@ -146,39 +180,5 @@ public class TgChatRecord extends UpdatableRecordImpl<TgChatRecord> implements R
         value1(value1);
         value2(value2);
         return this;
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Create a detached TgChatRecord
-     */
-    public TgChatRecord() {
-        super(TgChat.TG_CHAT);
-    }
-
-    /**
-     * Create a detached, initialised TgChatRecord
-     */
-    @ConstructorProperties({"id", "createdAt"})
-    public TgChatRecord(@NotNull Long id, @NotNull OffsetDateTime createdAt) {
-        super(TgChat.TG_CHAT);
-
-        setId(id);
-        setCreatedAt(createdAt);
-    }
-
-    /**
-     * Create a detached, initialised TgChatRecord
-     */
-    public TgChatRecord(ru.tinkoff.edu.java.scrapper.entity.jooq.tables.pojos.TgChat value) {
-        super(TgChat.TG_CHAT);
-
-        if (value != null) {
-            setId(value.getId());
-            setCreatedAt(value.getCreatedAt());
-        }
     }
 }

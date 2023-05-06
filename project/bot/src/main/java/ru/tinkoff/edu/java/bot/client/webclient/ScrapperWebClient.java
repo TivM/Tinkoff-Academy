@@ -9,12 +9,12 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import ru.tinkoff.edu.java.bot.client.api.ScrapperClient;
-import ru.tinkoff.edu.java.bot.exception.ApiClientErrorException;
-import ru.tinkoff.edu.java.bot.exception.ApiInternalServerErrorException;
 import ru.tinkoff.edu.java.bot.dto.AddLinkRequest;
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 import ru.tinkoff.edu.java.bot.dto.ListLinksResponse;
 import ru.tinkoff.edu.java.bot.dto.RemoveLinkRequest;
+import ru.tinkoff.edu.java.bot.exception.ApiClientErrorException;
+import ru.tinkoff.edu.java.bot.exception.ApiInternalServerErrorException;
 
 import java.net.URI;
 import java.util.Optional;
@@ -111,7 +111,6 @@ public class ScrapperWebClient implements ScrapperClient {
                 )
                 .bodyToMono(Void.class).block();
     }
-
 
 
     private Mono<? extends RuntimeException> onClientErrorInternal(ClientResponse resp, String when) {

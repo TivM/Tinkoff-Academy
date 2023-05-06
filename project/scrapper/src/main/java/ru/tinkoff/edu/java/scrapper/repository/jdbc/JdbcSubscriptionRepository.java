@@ -16,35 +16,29 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JdbcSubscriptionRepository implements SubscriptionRepository {
 
-    private final JdbcLinkRepository linkRepository;
-    private final JdbcTgChatRepository tgChatRepository;
-    private final NamedParameterJdbcTemplate jdbcTemplate;
-
-    private final RowMapper<Link> linkRowMapper = new DataClassRowMapper<>(Link.class);
-    private final RowMapper<TgChat> tgChatRowMapper = new DataClassRowMapper<>(TgChat.class);
-
     private static final String ADD_LINK_TO_CHAT_SQL = """
             insert into subscription(tg_chat_id, link_id) values (:chatId, :linkId);
             """;
-
     private static final String DELETE_LINK_FROM_CHAT_SQL = """
             delete from subscription where tg_chat_id = :chatId and link_id = :linkId;
             """;
-
     private static final String FIND_LINKS_BY_CHAT_ID_SQL = """
             select id, url
             from link l
             join subscription cl on l.id = cl.link_id
             where cl.tg_chat_id = :id
             """;
-
     private static final String FIND_CHATS_BY_LINK_ID_SQL = """
             select id, created_at
             from tg_chat c
             join subscription cl on c.id = cl.tg_chat_id
             where cl.link_id = :id
             """;
-
+    private final JdbcLinkRepository linkRepository;
+    private final JdbcTgChatRepository tgChatRepository;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final RowMapper<Link> linkRowMapper = new DataClassRowMapper<>(Link.class);
+    private final RowMapper<TgChat> tgChatRowMapper = new DataClassRowMapper<>(TgChat.class);
 
     @Override
     public List<Link> findLinksByChatId(Long id) {

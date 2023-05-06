@@ -5,7 +5,7 @@ app:
 
   exchange-name: exchange
 
-  use-queue: false
+  use-queue: true
 
   scheduler:
     interval: 10000

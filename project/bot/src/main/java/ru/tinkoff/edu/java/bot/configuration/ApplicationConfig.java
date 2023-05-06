@@ -17,5 +17,6 @@ public record ApplicationConfig(
         Boolean useQueue
 
 ) {
-    record Bot(@NotNull String apiKey){}
+    record Bot(@NotNull String apiKey) {
+    }
 }

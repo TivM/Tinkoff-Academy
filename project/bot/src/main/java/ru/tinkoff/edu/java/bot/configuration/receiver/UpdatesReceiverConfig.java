@@ -10,7 +10,7 @@ import ru.tinkoff.edu.java.bot.service.receiver.UpdatesReceiver;
 public class UpdatesReceiverConfig {
 
     @Bean
-    public UpdatesReceiver httpUpdatesReceiver(TelegramBot telegramBot, MessageSender messageSender){
+    public UpdatesReceiver httpUpdatesReceiver(TelegramBot telegramBot, MessageSender messageSender) {
         return new UpdatesReceiver(telegramBot, messageSender);
     }
 }

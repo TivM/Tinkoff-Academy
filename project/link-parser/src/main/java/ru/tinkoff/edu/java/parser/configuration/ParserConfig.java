@@ -6,7 +6,6 @@ import ru.tinkoff.edu.java.parser.GitHubParser;
 import ru.tinkoff.edu.java.parser.Parser;
 import ru.tinkoff.edu.java.parser.ParserInterface;
 import ru.tinkoff.edu.java.parser.StackOverflowParser;
-import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 
 import java.util.List;
 

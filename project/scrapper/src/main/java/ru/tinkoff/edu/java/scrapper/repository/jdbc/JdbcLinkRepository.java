@@ -18,9 +18,6 @@ import java.util.Optional;
 @Slf4j
 public class JdbcLinkRepository implements LinkRepository {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final RowMapper<Link> rowMapper = new DataClassRowMapper<>(Link.class);
-
     private static final String SAVE_SQL = """
             insert into link(url) values (:url) returning *
             """;
@@ -41,11 +38,11 @@ public class JdbcLinkRepository implements LinkRepository {
             select id, url, last_check_time, updated_at, updates_count from LINK
             order by last_check_time nulls first limit :limit
             """;
-
     private static final String DELETE_BY_ID_SQL = """
             delete from link where id = :id
             """;
-
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final RowMapper<Link> rowMapper = new DataClassRowMapper<>(Link.class);
 
     @Override
     public Link save(Link link) {

@@ -1,13 +1,10 @@
 package ru.tinkoff.edu.java.scrapper.repository.jpa;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
-import ru.tinkoff.edu.java.scrapper.entity.TgChat;
 
 import java.time.OffsetDateTime;
 import java.util.List;

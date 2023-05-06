@@ -11,7 +11,7 @@ public class StackOverflowParser extends AbstractParser {
 
     @Override
     protected ParseResult parseUrl(String[] splitUrl) {
-        if (!Objects.equals(splitUrl[1], HOST) || splitUrl.length <= 4){
+        if (!Objects.equals(splitUrl[1], HOST) || splitUrl.length <= 4) {
             return null;
         }
 

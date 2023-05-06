@@ -18,25 +18,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JdbcTgChatRepository implements TgChatRepository {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final RowMapper<TgChat> rowMapper = new DataClassRowMapper<>(TgChat.class);
-
     private static final String SAVE_SQL = """
             insert into tg_chat(id, created_at) values (:id, :createdAt) returning *
             """;
-
     private static final String FIND_ALL_SQL = """
             select id, created_at from tg_chat;
             """;
-
     private static final String FIND_BY_ID_SQL = """
             select id, created_at from tg_chat where id = :id
             """;
-
     private static final String DELETE_BY_ID_SQL = """
             delete FROM tg_chat where id = :id
             """;
-
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final RowMapper<TgChat> rowMapper = new DataClassRowMapper<>(TgChat.class);
 
     @Override
     public void save(TgChat tgChat) {

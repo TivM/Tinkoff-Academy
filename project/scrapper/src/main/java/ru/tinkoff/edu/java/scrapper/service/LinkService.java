@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.service;
 
 import ru.tinkoff.edu.java.scrapper.entity.Link;
-import ru.tinkoff.edu.java.scrapper.entity.TgChat;
 
 import java.net.URI;
 import java.util.Collection;

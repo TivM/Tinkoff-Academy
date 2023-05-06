@@ -11,13 +11,11 @@ import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import static java.time.OffsetDateTime.now;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest(classes = ScrapperApplication.class)
 public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
@@ -77,7 +75,7 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
     @Rollback
     @Sql("/sql/add_links.sql")
     public void findById__dbHasLinksWithId_success() {
-        long id1= linkRepository.findLinkByUrl("https://link.com").get().getId();
+        long id1 = linkRepository.findLinkByUrl("https://link.com").get().getId();
         long id2 = linkRepository.findLinkByUrl("https://newlink.com").get().getId();
 
 

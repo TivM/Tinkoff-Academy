@@ -3,7 +3,6 @@ package ru.tinkoff.edu.java.bot.configuration;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -17,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class ScrapperClientConfig {
 
-    private static final String BASE_URL = "https://localhost:8080";
     public static final int TIMEOUT = 1000;
+    private static final String BASE_URL = "https://localhost:8080";
 
     @Bean
     public WebClient webClient() {
@@ -38,7 +37,7 @@ public class ScrapperClientConfig {
     }
 
     @Bean
-    public ScrapperClient scrapperWebClient(WebClient webClient){
+    public ScrapperClient scrapperWebClient(WebClient webClient) {
         return new ScrapperWebClient(webClient);
     }
 }

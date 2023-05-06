@@ -17,24 +17,20 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class BotUpdatesDispatcherTest {
 
-    @Mock
-    private TelegramBot bot;
-
-    @Mock
-    private CommandProcessor commandProcessor;
-
     @InjectMocks
     BotUpdatesDispatcher botUpdatesDispatcher;
-
     @Captor
     ArgumentCaptor<SendMessage> sendMessageArgumentCaptor;
-
+    @Mock
+    private TelegramBot bot;
+    @Mock
+    private CommandProcessor commandProcessor;
 
     @Test
     void process__unexpectedCommand_returnSpecialMessage() {
@@ -52,12 +48,11 @@ public class BotUpdatesDispatcherTest {
         assertEquals(sendMessageArgumentCaptor.getValue().getParameters().get("text"), specialMessage);
 
 
-
     }
 
     // TODO: more tests
 
-    Update getUpdate(){
+    Update getUpdate() {
         //Update -> Message -> Chat -> Id
         Update update = new Update();
         Message message = new Message();

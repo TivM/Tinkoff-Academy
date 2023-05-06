@@ -1,9 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.jdbc;
 
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
@@ -17,7 +15,8 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcTgChatRepository;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
@@ -30,7 +29,6 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
 
     @Autowired
     JdbcTgChatRepository tgChatRepository;
-
 
 
     @Test

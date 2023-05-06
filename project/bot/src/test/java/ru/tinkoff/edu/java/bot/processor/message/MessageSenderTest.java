@@ -18,6 +18,7 @@ import java.io.File;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -40,7 +41,7 @@ public class MessageSenderTest {
 
 
     @Test
-    void sendTemplate__sendLinksTemplate_returnValidTemplate(){
+    void sendTemplate__sendLinksTemplate_returnValidTemplate() {
         //given
         Update update = getUpdate();
 
@@ -56,15 +57,15 @@ public class MessageSenderTest {
         Object text = message.getParameters().get("text");
 
         assertThat(text).isEqualTo("""
-             <b>Your links:</b>
-                 <a href="https://github.com/">https://github.com/</a>
-                 <a href="https://stackoverflow.com/">https://stackoverflow.com/</a>
-             """);
+                <b>Your links:</b>
+                    <a href="https://github.com/">https://github.com/</a>
+                    <a href="https://stackoverflow.com/">https://stackoverflow.com/</a>
+                """);
 
 
     }
 
-    Update getUpdate(){
+    Update getUpdate() {
         //Update -> Message -> Chat -> Id
         Update update = new Update();
         Message message = new Message();

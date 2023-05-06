@@ -10,7 +10,7 @@ import java.util.Collection;
 
 
 @RequiredArgsConstructor
-public class HttpBotNotifier implements BotNotifier{
+public class HttpBotNotifier implements BotNotifier {
 
     private final BotClient botClient;
 
@@ -22,7 +22,7 @@ public class HttpBotNotifier implements BotNotifier{
                         link.getUrl(),
                         description,
                         tgChats.stream().map(TgChat::getId).toList()
-                    )
+                )
         );
     }
 }

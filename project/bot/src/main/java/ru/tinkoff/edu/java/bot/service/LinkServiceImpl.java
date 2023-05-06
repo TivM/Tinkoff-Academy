@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.client.api.ScrapperClient;
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 
-import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;

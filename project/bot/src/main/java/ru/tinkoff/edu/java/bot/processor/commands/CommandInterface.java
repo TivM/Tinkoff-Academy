@@ -16,7 +16,7 @@ public interface CommandInterface {
         return new BotCommand(command(), description());
     }
 
-    default boolean supports(Update update){
+    default boolean supports(Update update) {
         return update.message() != null &&
                 update.message().text() != null &&
                 update.message().text().startsWith(command());

@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.java.bot.service;
 
 import ru.tinkoff.edu.java.bot.dto.LinkResponse;
-import ru.tinkoff.edu.java.bot.dto.ListLinksResponse;
 
 import java.net.URI;
 import java.util.List;

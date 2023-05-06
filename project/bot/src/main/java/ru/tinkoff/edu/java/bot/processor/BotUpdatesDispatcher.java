@@ -18,7 +18,6 @@ public class BotUpdatesDispatcher implements UpdatesListener {
     private final CommandProcessor commandProcessor;
 
 
-
     @Override
     public int process(List<Update> updates) {
         int lastProcessedId = CONFIRMED_UPDATES_NONE;

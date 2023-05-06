@@ -1,8 +1,6 @@
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.tinkoff.edu.java.parser.Parser;
 
-import java.util.List;
-
 
 public class MainTestParser {
     public static void main(String[] args) {

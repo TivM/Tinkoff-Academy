@@ -16,7 +16,7 @@ public class QueueBotNotifierConfig {
     private final RabbitTemplate template;
 
     @Bean
-    public QueueBotNotifier queueBotNotifier(Queue queue){
+    public QueueBotNotifier queueBotNotifier(Queue queue) {
         return new QueueBotNotifier(template, queue);
     }
 
