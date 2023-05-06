@@ -23,6 +23,7 @@ import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 @Slf4j
 @RequiredArgsConstructor
 public class JpaLinksUpdaterImpl implements LinksUpdater {
+    private static final String MESSAGE = "Something new!";
 
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
@@ -84,15 +85,15 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
             link.setUpdatesCount(issuesCount);
 
             //.toInstant 'cause hibernate can't normally map OffsetDateTime
-        } else if (!Objects.equals(link.getUpdatedAt().toInstant().toString(), updatedAt.toString()) ||
-            !sameUpdatesCount) {
+        } else if (!Objects.equals(link.getUpdatedAt().toInstant().toString(), updatedAt.toString())
+            || !sameUpdatesCount) {
             link.setUpdatedAt(updatedAt);
             String description;
             if (!sameUpdatesCount) {
                 description = "There's a new open issue!";
                 link.setUpdatesCount(issuesCount);
             } else {
-                description = "Something new!";
+                description = MESSAGE;
             }
             botNotifier.notifyBot(link, description, findChatsByLinkId(link.getId()));
         }
@@ -115,7 +116,7 @@ public class JpaLinksUpdaterImpl implements LinksUpdater {
                 description = "There's new answer!";
                 link.setUpdatesCount(answerCount);
             } else {
-                description = "Something new!";
+                description = MESSAGE;
             }
 
             botNotifier.notifyBot(link, description, findChatsByLinkId(link.getId()));

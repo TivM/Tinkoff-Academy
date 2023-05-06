@@ -13,6 +13,8 @@ import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.TG_CHAT;
 
 @RequiredArgsConstructor
 public class JooqSubscriptionRepository implements SubscriptionRepository {
+    private static final String LINK_ERROR_MESSAGE = "Link doesn't exist";
+    private static final String CHAT_ERROR_MESSAGE = "Chat doesn't exist";
 
     private final DSLContext create;
     private final JooqLinkRepository linkRepository;
@@ -31,9 +33,9 @@ public class JooqSubscriptionRepository implements SubscriptionRepository {
 
     @Override
     public List<TgChat> findChatsByLinkId(Long id) {
-        var link = linkRepository
+        Link link = linkRepository
             .findById(id)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(LINK_ERROR_MESSAGE, 1));
 
         return create
             .select(TG_CHAT.ID, TG_CHAT.CREATED_AT)
@@ -48,30 +50,30 @@ public class JooqSubscriptionRepository implements SubscriptionRepository {
     public void addLinkToChat(Long chatId, Link link) {
         TgChat tgChat = tgChatRepository
             .findById(chatId)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
-        link = linkRepository
+            .orElseThrow(() -> new EmptyResultDataAccessException(CHAT_ERROR_MESSAGE, 1));
+        Link linkToAdd = linkRepository
             .findLinkByUrl(link.getUrl())
-            .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(LINK_ERROR_MESSAGE, 1));
 
         create.insertInto(SUBSCRIPTION)
             .columns(SUBSCRIPTION.TG_CHAT_ID, SUBSCRIPTION.LINK_ID)
-            .values(tgChat.getId(), link.getId())
+            .values(tgChat.getId(), linkToAdd.getId())
             .execute();
 
     }
 
     @Override
     public void deleteLinkFromChat(Long chatId, Link link) {
-        var tgChat = tgChatRepository
+        TgChat tgChat = tgChatRepository
             .findById(chatId)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
-        link = linkRepository
+            .orElseThrow(() -> new EmptyResultDataAccessException(CHAT_ERROR_MESSAGE, 1));
+        Link linkToDelete = linkRepository
             .findLinkByUrl(link.getUrl())
-            .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(LINK_ERROR_MESSAGE, 1));
 
         int updatedRows = create
             .delete(SUBSCRIPTION)
-            .where(SUBSCRIPTION.TG_CHAT_ID.eq(tgChat.getId()).and(SUBSCRIPTION.LINK_ID.eq(link.getId())))
+            .where(SUBSCRIPTION.TG_CHAT_ID.eq(tgChat.getId()).and(SUBSCRIPTION.LINK_ID.eq(linkToDelete.getId())))
             .execute();
 
         if (updatedRows == 0) {

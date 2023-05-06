@@ -18,6 +18,7 @@ import ru.tinkoff.edu.java.scrapper.service.notifier.BotNotifier;
 
 @RequiredArgsConstructor
 public class JooqLinksUpdaterImpl implements LinksUpdater {
+    private static final String MESSAGE = "Something new!";
 
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
@@ -80,7 +81,7 @@ public class JooqLinksUpdaterImpl implements LinksUpdater {
                 description = "There's a new open issue!";
                 link.setUpdatesCount(issuesCount);
             } else {
-                description = "Something new!";
+                description = MESSAGE;
             }
 
             botNotifier.notifyBot(
@@ -106,7 +107,7 @@ public class JooqLinksUpdaterImpl implements LinksUpdater {
                 description = "There's new answer!";
                 link.setUpdatesCount(answerCount);
             } else {
-                description = "Something new!";
+                description = MESSAGE;
             }
 
             botNotifier.notifyBot(

@@ -18,6 +18,7 @@ import ru.tinkoff.edu.java.scrapper.service.LinkService;
 @Slf4j
 @RequiredArgsConstructor
 public class JpaLinkService implements LinkService {
+    private static final String CHAT_NOT_FOUND = "Chat doesn't exist";
 
     private final JpaLinkRepository linkRepository;
     private final JpaTgChatRepository tgChatRepository;
@@ -35,7 +36,7 @@ public class JpaLinkService implements LinkService {
 
         TgChat tgChat = tgChatRepository
             .findById(tgChatId)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(CHAT_NOT_FOUND, 1));
 
         tgChat.getLinks().add(link);
 
@@ -51,7 +52,7 @@ public class JpaLinkService implements LinkService {
 
         TgChat tgChat = tgChatRepository
             .findById(tgChatId)
-            .orElseThrow(() -> new ResourceNotFoundException("Chat doesn't exist"));
+            .orElseThrow(() -> new ResourceNotFoundException(CHAT_NOT_FOUND));
 
         tgChat.getLinks().remove(link);
 
@@ -63,14 +64,9 @@ public class JpaLinkService implements LinkService {
     public Collection<Link> listAll(long tgChatId) {
         TgChat tgChat = tgChatRepository
             .findById(tgChatId)
-            .orElseThrow(() -> new ResourceNotFoundException("Chat doesn't exist"));
+            .orElseThrow(() -> new ResourceNotFoundException(CHAT_NOT_FOUND));
 
         return tgChat.getLinks();
     }
 
-//    @Override
-//    @Transactional
-//    public Collection<TgChat> getChatsByLink(Link link) {
-//        return null;
-//    }
 }

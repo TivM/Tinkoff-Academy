@@ -14,8 +14,8 @@ public interface JpaLinkRepository extends JpaRepository<Link, Long> {
     Optional<Link> findByUrl(String url);
 
     @Modifying
-    @Query("update Link l set l.lastCheckTime = :lastCheckTime, l.updatedAt = :updatedAt,\n" +
-        "            l.updatesCount = :updatesCount where l.id = :id")
+    @Query("update Link l set l.lastCheckTime = :lastCheckTime, l.updatedAt = :updatedAt,\n"
+        + "l.updatesCount = :updatesCount where l.id = :id")
     void update(
         OffsetDateTime lastCheckTime,
         OffsetDateTime updatedAt,

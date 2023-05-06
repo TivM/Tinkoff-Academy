@@ -76,7 +76,7 @@ public class RestResponseEntityExceptionHandler extends
     @ExceptionHandler({DuplicateLinkException.class})
     public ResponseEntity<Object> handleDuplicateLinkException(DuplicateLinkException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
-        response.setDescription("Not found");
+        response.setDescription("Duplicate");
         response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
         response.setExceptionName(ex.getClass().getName());
         response.setExceptionMessage(ex.getMessage());

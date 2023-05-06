@@ -14,6 +14,7 @@ import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 @RequiredArgsConstructor
 public class JooqLinkService implements LinkService {
+    private static final String PARSER_EXCEPTION_MESSAGE = "Can't parse this link";
 
     private final JooqLinkRepository linkRepository;
     private final JooqSubscriptionRepository subscriptionRepository;
@@ -23,7 +24,7 @@ public class JooqLinkService implements LinkService {
     @Transactional
     public Link add(long tgChatId, URI url) {
         if (linkParser.parse(url.toString()) == null) {
-            throw new LinkParserException("Can't parse this link");
+            throw new LinkParserException(PARSER_EXCEPTION_MESSAGE);
         }
 
         Link link = linkRepository.findLinkByUrl(url.toString())
@@ -38,7 +39,7 @@ public class JooqLinkService implements LinkService {
     @Transactional
     public Link remove(long tgChatId, URI url) {
         if (linkParser.parse(url.toString()) == null) {
-            throw new LinkParserException("Can't parse this link");
+            throw new LinkParserException(PARSER_EXCEPTION_MESSAGE);
         }
 
         Link link = linkRepository.findLinkByUrl(url.toString())
