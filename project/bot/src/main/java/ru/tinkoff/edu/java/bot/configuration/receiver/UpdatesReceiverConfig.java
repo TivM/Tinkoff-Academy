@@ -8,7 +8,6 @@ import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 import ru.tinkoff.edu.java.bot.service.receiver.UpdatesReceiver;
 
 @Configuration
-@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false")
 public class UpdatesReceiverConfig {
     @Bean
     public UpdatesReceiver httpUpdatesReceiver(TelegramBot telegramBot, MessageSender messageSender) {
