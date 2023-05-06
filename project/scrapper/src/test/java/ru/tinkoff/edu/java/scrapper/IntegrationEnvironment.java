@@ -1,5 +1,10 @@
 package ru.tinkoff.edu.java.scrapper;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.sql.DataSource;
 import liquibase.Liquibase;
 import liquibase.database.core.PostgresDatabase;
 import liquibase.database.jvm.JdbcConnection;
@@ -15,12 +20,6 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import javax.sql.DataSource;
-import java.io.File;
-import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 @Testcontainers
 @ContextConfiguration(classes = IntegrationEnvironment.IntegrationEnvironmentConfiguration.class)
 public abstract class IntegrationEnvironment {
@@ -28,16 +27,17 @@ public abstract class IntegrationEnvironment {
 
     static {
         DB_CONTAINER = new PostgreSQLContainer<>("postgres:14")
-                .withDatabaseName("scrapper")
-                .withUsername("postgres")
-                .withPassword("password");
+            .withDatabaseName("scrapper")
+            .withUsername("postgres")
+            .withPassword("password");
         DB_CONTAINER.start();
 
         var changeLogPath = new File(".").toPath().toAbsolutePath()
-                .getParent().getParent().resolve("migrations");
+            .getParent().getParent().resolve("migrations");
 
         try (var connection = DriverManager.getConnection(DB_CONTAINER.getJdbcUrl(),
-                DB_CONTAINER.getUsername(), DB_CONTAINER.getPassword())) {
+            DB_CONTAINER.getUsername(), DB_CONTAINER.getPassword()
+        )) {
 
             var changeLogDir = new DirectoryResourceAccessor(changeLogPath);
 
@@ -65,10 +65,10 @@ public abstract class IntegrationEnvironment {
         public DataSource dataSource() {
 
             return DataSourceBuilder.create()
-                    .url(DB_CONTAINER.getJdbcUrl())
-                    .username(DB_CONTAINER.getUsername())
-                    .password(DB_CONTAINER.getPassword())
-                    .build();
+                .url(DB_CONTAINER.getJdbcUrl())
+                .username(DB_CONTAINER.getUsername())
+                .password(DB_CONTAINER.getPassword())
+                .build();
         }
     }
 

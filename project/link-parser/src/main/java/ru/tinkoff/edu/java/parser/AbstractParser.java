@@ -1,7 +1,7 @@
 package ru.tinkoff.edu.java.parser;
 
 import java.net.URL;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 import ru.tinkoff.edu.java.parser.parseresult.ParseResult;
 
 public abstract class AbstractParser implements ParserInterface {

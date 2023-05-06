@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.jdbc;
 
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,10 +12,6 @@ import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
-
-import java.util.List;
-import java.util.Optional;
-
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -48,7 +46,7 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
 
         //then
         assertAll(
-                () -> assertThat(foundLink.getUrl()).isEqualTo(link.getUrl())
+            () -> assertThat(foundLink.getUrl()).isEqualTo(link.getUrl())
         );
     }
 
@@ -65,8 +63,8 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
 
         //then
         assertAll(
-                () -> assertThat(foundLink).isNotEmpty(),
-                () -> assertThat(foundLink.get().getUrl()).isEqualTo(link.getUrl())
+            () -> assertThat(foundLink).isNotEmpty(),
+            () -> assertThat(foundLink.get().getUrl()).isEqualTo(link.getUrl())
         );
     }
 
@@ -78,10 +76,9 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
         long id1 = linkRepository.findLinkByUrl("https://link.com").get().getId();
         long id2 = linkRepository.findLinkByUrl("https://newlink.com").get().getId();
 
-
         assertAll(
-                () -> assertThat(linkRepository.findById(id1)).isNotEmpty(),
-                () -> assertThat(linkRepository.findById(id2)).isNotEmpty()
+            () -> assertThat(linkRepository.findById(id1)).isNotEmpty(),
+            () -> assertThat(linkRepository.findById(id2)).isNotEmpty()
         );
     }
 
@@ -113,10 +110,10 @@ public class JdbcLinkRepositoryTest extends IntegrationEnvironment {
     void findCheckedLongTimeAgoLinks__dbHasLinks_success() {
         List<Link> links = linkRepository.findCheckedLongTimeAgoLinks(4);
         assertAll(
-                () -> assertThat(links.get(0).getUrl()).isEqualTo("https://link4.com"),
-                () -> assertThat(links.get(1).getUrl()).isEqualTo("https://link2.com"),
-                () -> assertThat(links.get(2).getUrl()).isEqualTo("https://link3.com"),
-                () -> assertThat(links.get(3).getUrl()).isEqualTo("https://link1.com")
+            () -> assertThat(links.get(0).getUrl()).isEqualTo("https://link4.com"),
+            () -> assertThat(links.get(1).getUrl()).isEqualTo("https://link2.com"),
+            () -> assertThat(links.get(2).getUrl()).isEqualTo("https://link3.com"),
+            () -> assertThat(links.get(3).getUrl()).isEqualTo("https://link1.com")
         );
 
     }
