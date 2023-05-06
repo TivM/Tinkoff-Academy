@@ -16,8 +16,8 @@ public interface CommandInterface {
     }
 
     default boolean supports(Update update) {
-        return update.message() != null &&
-            update.message().text() != null &&
-            update.message().text().startsWith(command());
+        return update.message() != null
+            && update.message().text() != null
+            && update.message().text().startsWith(command());
     }
 }

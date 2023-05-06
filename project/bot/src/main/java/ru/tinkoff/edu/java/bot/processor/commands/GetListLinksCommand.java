@@ -15,7 +15,7 @@ import ru.tinkoff.edu.java.bot.service.LinkServiceImpl;
 @RequiredArgsConstructor
 public class GetListLinksCommand implements CommandInterface {
 
-    private static final String linksTemplate = "links.ftl";
+    private static final String LINKS_TEMPLATE = "links.ftl";
     private final MessageSenderImpl messageSender;
     private final LinkServiceImpl linkService;
 
@@ -38,7 +38,7 @@ public class GetListLinksCommand implements CommandInterface {
                 "You are not tracking links yet. Try using /track to start tracking links"
             );
         }
-        return messageSender.sendTemplateUpdate(update, linksTemplate, Map.of("links", links));
+        return messageSender.sendTemplateUpdate(update, LINKS_TEMPLATE, Map.of("links", links));
     }
 
     @Override

@@ -34,7 +34,7 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, status);
     }
 
-    @ExceptionHandler({IncorrectRequestParameterException.class,})
+    @ExceptionHandler({IncorrectRequestParameterException.class})
     public ResponseEntity<Object> handleIncorrectRequestParameterException(IncorrectRequestParameterException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Incorrect request parameter");

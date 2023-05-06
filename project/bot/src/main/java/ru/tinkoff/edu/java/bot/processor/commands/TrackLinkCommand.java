@@ -46,9 +46,9 @@ public class TrackLinkCommand implements CommandInterface {
             String link = update.message().text();
             Optional<LinkResponse> linkResponse = linkService.trackLink(update.message().chat().id(), URI.create(link));
 
-            return linkResponse.isPresent() ?
-                messageSender.sendMessage(update, "Add link %s".formatted(link)) :
-                messageSender.sendMessage(update, TRACK_REPLY_ERROR).replyMarkup(new ForceReply());
+            return linkResponse.isPresent()
+                ? messageSender.sendMessage(update, "Add link %s".formatted(link))
+                : messageSender.sendMessage(update, TRACK_REPLY_ERROR).replyMarkup(new ForceReply());
         }
 
         return messageSender.sendMessage(update, TRACK_REPLY).replyMarkup(new ForceReply());
@@ -57,9 +57,9 @@ public class TrackLinkCommand implements CommandInterface {
 
     @Override
     public boolean supports(Update update) {
-        return update.message() != null &&
-            update.message().text() != null &&
-            update.message().text().startsWith(command())
+        return update.message() != null
+            && update.message().text() != null
+            && update.message().text().startsWith(command())
             || isReply(update);
     }
 

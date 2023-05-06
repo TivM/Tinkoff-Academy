@@ -10,7 +10,7 @@ import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 @RequiredArgsConstructor
 public class UpdatesReceiver {
 
-    private static final String updateTemplate = "update.ftl";
+    private static final String UPDATE_TEMPLATE = "update.ftl";
     private final TelegramBot telegramBot;
     private final MessageSender messageSender;
 
@@ -20,7 +20,7 @@ public class UpdatesReceiver {
         );
 
         for (long chatId : linkUpdateRequest.getTgChatIds()) {
-            SendMessage message = messageSender.sendTemplateId(chatId, updateTemplate, model);
+            SendMessage message = messageSender.sendTemplateId(chatId, UPDATE_TEMPLATE, model);
             telegramBot.execute(message);
         }
     }

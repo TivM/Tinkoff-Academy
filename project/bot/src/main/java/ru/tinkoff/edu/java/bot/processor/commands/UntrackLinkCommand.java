@@ -46,9 +46,9 @@ public class UntrackLinkCommand implements CommandInterface {
             Optional<LinkResponse> linkResponse =
                 linkService.untrackLink(update.message().chat().id(), URI.create(link));
 
-            return linkResponse.isPresent() ?
-                messageSender.sendMessage(update, "Stop tracking link %s".formatted(link)) :
-                messageSender.sendMessage(update, UNTRACK_REPLY_ERROR).replyMarkup(new ForceReply());
+            return linkResponse.isPresent()
+                ? messageSender.sendMessage(update, "Stop tracking link %s".formatted(link))
+                : messageSender.sendMessage(update, UNTRACK_REPLY_ERROR).replyMarkup(new ForceReply());
         }
 
         return messageSender.sendMessage(update, UNTRACK_REPLY).replyMarkup(new ForceReply());
@@ -61,9 +61,9 @@ public class UntrackLinkCommand implements CommandInterface {
 
     @Override
     public boolean supports(Update update) {
-        return update.message() != null &&
-            update.message().text() != null &&
-            update.message().text().startsWith(command())
+        return update.message() != null
+            && update.message().text() != null
+            && update.message().text().startsWith(command())
             || isReply(update);
     }
 }

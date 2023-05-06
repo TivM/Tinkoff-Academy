@@ -24,6 +24,8 @@ public class ScrapperWebClient implements ScrapperClient {
     private static final String LINKS_URI = "/links";
     private static final String TG_CHAT_URI = "/tg-chat/{id}";
     private static final String TG_CHAT_ID_HEADER = "Tg-Chat-Id";
+    private static final String DELETING = "deleting chat";
+    private static final String REGISTERING = "registering new chat";
 
     private final String baseUrl;
     private final WebClient webClient;
@@ -84,11 +86,11 @@ public class ScrapperWebClient implements ScrapperClient {
             .retrieve()
             .onStatus(
                 HttpStatusCode::is4xxClientError,
-                resp -> onClientErrorInternal(resp, "deleting chat")
+                resp -> onClientErrorInternal(resp, DELETING)
             )
             .onStatus(
                 HttpStatusCode::is5xxServerError,
-                resp -> onServerErrorInternal(resp, "deleting chat")
+                resp -> onServerErrorInternal(resp, DELETING)
             )
             .bodyToMono(Void.class).block();
     }
@@ -101,11 +103,11 @@ public class ScrapperWebClient implements ScrapperClient {
             .retrieve()
             .onStatus(
                 HttpStatusCode::is4xxClientError,
-                resp -> onClientErrorInternal(resp, "registering new chat")
+                resp -> onClientErrorInternal(resp, REGISTERING)
             )
             .onStatus(
                 HttpStatusCode::is5xxServerError,
-                resp -> onServerErrorInternal(resp, "registering new chat")
+                resp -> onServerErrorInternal(resp, REGISTERING)
             )
             .bodyToMono(Void.class).block();
     }

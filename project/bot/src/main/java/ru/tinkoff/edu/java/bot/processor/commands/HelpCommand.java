@@ -12,7 +12,7 @@ import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
 @Component
 @RequiredArgsConstructor
 public class HelpCommand implements CommandInterface {
-    private static final String helpTemplate = "help.ftl";
+    private static final String HELP_TEMPLATE = "help.ftl";
     private final List<CommandInterface> commands;
     private final MessageSenderImpl messageSender;
 
@@ -28,7 +28,7 @@ public class HelpCommand implements CommandInterface {
 
     @Override
     public SendMessage process(Update update) {
-        return messageSender.sendTemplateUpdate(update, helpTemplate, Map.of("commands", commands));
+        return messageSender.sendTemplateUpdate(update, HELP_TEMPLATE, Map.of("commands", commands));
     }
 
     @Override
