@@ -23,6 +23,7 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <org-jetbrains-annotations.version>23.0.1</org-jetbrains-annotations.version>
         <testcontainers.version>1.17.6</testcontainers.version>
+        <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
         <revision>1.0</revision>
     </properties>
 
