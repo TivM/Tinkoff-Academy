@@ -1,17 +1,14 @@
 package ru.tinkoff.edu.java.bot.service.receiver;
 
-import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.model.LinkUpdateRequest;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
 
 @Slf4j
 @RequiredArgsConstructor
-public class QueueUpdatesReceiver{
+public class QueueUpdatesReceiver {
 
     private final UpdatesReceiver updatesReceiver;
 

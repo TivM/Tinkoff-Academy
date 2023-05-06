@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.java.bot.controller;
 
-
+import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
 import org.openapitools.model.ApiErrorResponse;
 import org.springframework.http.HttpHeaders;
@@ -14,18 +14,17 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.tinkoff.edu.java.bot.exception.IncorrectRequestParameterException;
 
-import java.util.Arrays;
-
-
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends
-        ResponseEntityExceptionHandler {
+    ResponseEntityExceptionHandler {
 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                  @NotNull HttpHeaders headers,
-                                                                  @NotNull HttpStatusCode status,
-                                                                  @NotNull WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+        HttpMessageNotReadableException ex,
+        @NotNull HttpHeaders headers,
+        @NotNull HttpStatusCode status,
+        @NotNull WebRequest request
+    ) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Incorrect JSON");
         response.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));

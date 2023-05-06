@@ -3,20 +3,18 @@ package ru.tinkoff.edu.java.bot.processor.commands;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
 
-import java.util.List;
-import java.util.Map;
-
 @Component
 @RequiredArgsConstructor
 public class HelpCommand implements CommandInterface {
+    private static final String helpTemplate = "help.ftl";
     private final List<CommandInterface> commands;
     private final MessageSenderImpl messageSender;
-
-    private static final String helpTemplate = "help.ftl";
 
     @Override
     public String command() {

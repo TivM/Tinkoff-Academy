@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.bot.controller;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.UpdatesApi;
@@ -9,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.edu.java.bot.service.receiver.UpdatesReceiver;
-
 
 @RestController
 @RequiredArgsConstructor

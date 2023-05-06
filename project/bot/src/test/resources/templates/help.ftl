@@ -1,2 +1,2 @@
 <b>Your links:</b>
-    <a href="${link.url()}">${link.url()}</a>
+<a href="${link.url()}">${link.url()}</a>
