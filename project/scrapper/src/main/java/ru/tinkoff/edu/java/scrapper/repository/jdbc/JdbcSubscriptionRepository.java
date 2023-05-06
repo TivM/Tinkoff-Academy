@@ -15,6 +15,10 @@ import ru.tinkoff.edu.java.scrapper.repository.SubscriptionRepository;
 
 @RequiredArgsConstructor
 public class JdbcSubscriptionRepository implements SubscriptionRepository {
+    private static final String LINK_ERROR_MESSAGE = "Link doesn't exist";
+    private static final String CHAT_ERROR_MESSAGE = "Chat doesn't exist";
+    private static final String LINK_ID_KEY = "linkId";
+    private static final String CHAT_ID_KEY = "chatId";
 
     private static final String ADD_LINK_TO_CHAT_SQL = """
         insert into subscription(tg_chat_id, link_id) values (:chatId, :linkId);
@@ -49,7 +53,7 @@ public class JdbcSubscriptionRepository implements SubscriptionRepository {
     public List<TgChat> findChatsByLinkId(Long id) {
         Link link = linkRepository
             .findById(id)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(LINK_ERROR_MESSAGE, 1));
         return jdbcTemplate.query(FIND_CHATS_BY_LINK_ID_SQL, Map.of("id", link.getId()), tgChatRowMapper);
     }
 
@@ -57,15 +61,15 @@ public class JdbcSubscriptionRepository implements SubscriptionRepository {
     public void addLinkToChat(Long chatId, Link link) {
         TgChat tgChat = tgChatRepository
             .findById(chatId)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
-        link = linkRepository
+            .orElseThrow(() -> new EmptyResultDataAccessException(CHAT_ERROR_MESSAGE, 1));
+        Link linkToAdd = linkRepository
             .findLinkByUrl(link.getUrl())
-            .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(LINK_ERROR_MESSAGE, 1));
 
         jdbcTemplate.update(
             ADD_LINK_TO_CHAT_SQL,
-            Map.of("chatId", tgChat.getId(),
-                "linkId", link.getId()
+            Map.of(CHAT_ID_KEY, tgChat.getId(),
+                LINK_ID_KEY, linkToAdd.getId()
             )
         );
     }
@@ -74,15 +78,15 @@ public class JdbcSubscriptionRepository implements SubscriptionRepository {
     public void deleteLinkFromChat(Long chatId, Link link) {
         TgChat tgChat = tgChatRepository
             .findById(chatId)
-            .orElseThrow(() -> new EmptyResultDataAccessException("Chat doesn't exist", 1));
-        link = linkRepository
+            .orElseThrow(() -> new EmptyResultDataAccessException(CHAT_ERROR_MESSAGE, 1));
+        Link linkFromChat = linkRepository
             .findLinkByUrl(link.getUrl())
-            .orElseThrow(() -> new EmptyResultDataAccessException("Link doesn't exist", 1));
+            .orElseThrow(() -> new EmptyResultDataAccessException(LINK_ERROR_MESSAGE, 1));
 
         int updatedRows = jdbcTemplate.update(
             DELETE_LINK_FROM_CHAT_SQL,
-            Map.of("chatId", tgChat.getId(),
-                "linkId", link.getId()
+            Map.of(CHAT_ID_KEY, tgChat.getId(),
+                LINK_ID_KEY, linkFromChat.getId()
             )
         );
 

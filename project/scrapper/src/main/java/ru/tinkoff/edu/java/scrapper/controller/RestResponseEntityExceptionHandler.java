@@ -38,7 +38,7 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, status);
     }
 
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class,})
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Incorrect argument");
@@ -50,7 +50,7 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({IncorrectRequestParameterException.class,})
+    @ExceptionHandler({IncorrectRequestParameterException.class})
     public ResponseEntity<Object> handleIncorrectRequestParameterException(IncorrectRequestParameterException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Incorrect request parameter");
@@ -62,7 +62,7 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({ResourceNotFoundException.class,})
+    @ExceptionHandler({ResourceNotFoundException.class})
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Not found");
@@ -73,7 +73,7 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({DuplicateLinkException.class,})
+    @ExceptionHandler({DuplicateLinkException.class})
     public ResponseEntity<Object> handleDuplicateLinkException(DuplicateLinkException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Not found");
@@ -84,7 +84,7 @@ public class RestResponseEntityExceptionHandler extends
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({LinkParserException.class,})
+    @ExceptionHandler({LinkParserException.class})
     public ResponseEntity<Object> handleLinkParserException(LinkParserException ex) {
         ApiErrorResponse response = new ApiErrorResponse();
         response.setDescription("Incorrect link");

@@ -15,6 +15,8 @@ import ru.tinkoff.edu.java.scrapper.repository.LinkRepository;
 @RequiredArgsConstructor
 @Slf4j
 public class JdbcLinkRepository implements LinkRepository {
+    private static final String URL_KEY = "url";
+    private static final String ID_KEY = "id";
 
     private static final String SAVE_SQL = """
         insert into link(url) values (:url) returning *
@@ -46,7 +48,7 @@ public class JdbcLinkRepository implements LinkRepository {
     public Link save(Link link) {
         return jdbcTemplate.queryForObject(
             SAVE_SQL,
-            Map.of("url", link.getUrl()),
+            Map.of(URL_KEY, link.getUrl()),
             rowMapper
         );
     }
@@ -57,7 +59,7 @@ public class JdbcLinkRepository implements LinkRepository {
             Map.of("lastCheckTime", link.getLastCheckTime(),
                 "updatedAt", link.getUpdatedAt(),
                 "updatesCount", link.getUpdatesCount(),
-                "id", link.getId()
+                ID_KEY, link.getId()
             )
         );
     }
@@ -71,7 +73,7 @@ public class JdbcLinkRepository implements LinkRepository {
     public Optional<Link> findById(Long id) {
         return Optional.ofNullable(
             DataAccessUtils.singleResult(
-                jdbcTemplate.query(FIND_BY_ID_SQL, Map.of("id", id), rowMapper)
+                jdbcTemplate.query(FIND_BY_ID_SQL, Map.of(ID_KEY, id), rowMapper)
             )
         );
     }
@@ -80,14 +82,14 @@ public class JdbcLinkRepository implements LinkRepository {
     public Optional<Link> findLinkByUrl(String url) {
         return Optional.ofNullable(
             DataAccessUtils.singleResult(
-                jdbcTemplate.query(FIND_LINK_BY_URL_SQL, Map.of("url", url), rowMapper)
+                jdbcTemplate.query(FIND_LINK_BY_URL_SQL, Map.of(URL_KEY, url), rowMapper)
             )
         );
     }
 
     @Override
     public void deleteById(Long id) {
-        jdbcTemplate.update(DELETE_BY_ID_SQL, Map.of("id", id));
+        jdbcTemplate.update(DELETE_BY_ID_SQL, Map.of(ID_KEY, id));
     }
 
     @Override
