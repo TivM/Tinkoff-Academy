@@ -12,6 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    needs: checkstyle
+    
     permissions:
       contents: read
       packages: write
