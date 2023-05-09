@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "project/scrapper/**"
+      - "project/scrapper-jooq/**"
       - "project/link-parser/**"
       - "project/scrapper.Dockerfile"
       - "project/pom.xml"
@@ -12,6 +13,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    needs: checkstyle
  
     permissions:
       contents: read
