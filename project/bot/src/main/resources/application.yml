@@ -17,3 +17,33 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+management:
+  server:
+    port: 8280
+
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: ["info", "health", "prometheus"]
+      base-path: /
+      path-mapping:
+        prometheus: metrics
+
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  metrics:
+    tags:
+      application: bot
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true

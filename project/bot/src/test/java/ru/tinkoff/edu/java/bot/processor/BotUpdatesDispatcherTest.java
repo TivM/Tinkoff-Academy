@@ -7,6 +7,9 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import java.util.List;
 import java.util.Optional;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -23,14 +26,22 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class BotUpdatesDispatcherTest {
 
-    @InjectMocks
-    BotUpdatesDispatcher botUpdatesDispatcher;
     @Captor
     ArgumentCaptor<SendMessage> sendMessageArgumentCaptor;
     @Mock
     private TelegramBot bot;
     @Mock
     private CommandProcessor commandProcessor;
+    @Mock
+    private MeterRegistry meterRegistry;
+
+    BotUpdatesDispatcher botUpdatesDispatcher;
+
+    @BeforeEach
+    void setUp() {
+        botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandProcessor, meterRegistry);
+    }
+
 
     @Test
     void process__unexpectedCommand_returnSpecialMessage() {
