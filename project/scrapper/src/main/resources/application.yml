@@ -1,8 +1,17 @@
 app:
   test: This is SCRAPPER ApplicationConfig!
 
+  queue-name: queue
+
+  exchange-name: exchange
+
+  use-queue: false
+
   scheduler:
-    interval: 5000
+    interval: 10000
+    limit: 2
+
+  database-access-type: jdbc
 
 github:
   url:
@@ -12,9 +21,75 @@ stackoverflow:
   url:
     base: https://api.stackexchange.com/2.3/questions/
 
+bot:
+  url:
+    base: http://localhost:8081
+
+webclient:
+  timeout: 1000
+
 
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: true
+        show_sql: true
+        jdbc:
+          batch_size: 50
+          fetch_size: 50
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+
+
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scrapper
+    username: postgres
+    password: password
+
+
+management:
+  server:
+    port: 8180
+
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: [ "info", "health", "prometheus" ]
+      base-path: /
+      path-mapping:
+        prometheus: metrics
+
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+
+  metrics:
+    tags:
+      application: scrapper
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+
+
+
+
+
 
 

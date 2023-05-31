@@ -13,9 +13,8 @@ services:
     networks:
       - backend
 
-#    volumes:
-#      - postgres-data:/var/lib/postgresql/data
-
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
 
 
   liquibase-migrations:
@@ -37,10 +36,64 @@ services:
       - backend
 
 
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: 'rabbitmq:3.6-management-alpine'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
 
-#volumes:
-#  postgresql-data:
-#    name: postgres-data-volume
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    ports:
+      - '9090:9090'
+    networks:
+      - backend
+
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-oss
+    volumes:
+      - grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - '3000:3000'
+    networks:
+      - backend
+
+
+volumes:
+  postgresql-data:
+    name: postgres-data-volume
+  rabbitmq-data:
+    name: rabbitmq-data-volume
+    driver: local
+  prometheus:
+  grafana:
+
 
 networks:
   backend:

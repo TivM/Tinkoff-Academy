@@ -4,13 +4,17 @@ import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
+import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
+import ru.tinkoff.edu.java.bot.service.ChatService;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class StartCommand implements CommandInterface {
-    private final MessageSender messageSender;
+    private final MessageSenderImpl messageSender;
+    private final ChatService chatService;
 
     @Override
     public String command() {
@@ -24,6 +28,8 @@ public class StartCommand implements CommandInterface {
 
     @Override
     public SendMessage process(Update update) {
+        chatService.registerChat(update.message().chat().id());
+        log.info("New user with id {} is added", update.message().from().id());
         return messageSender.sendMessage(update, "Welcome!");
     }
 

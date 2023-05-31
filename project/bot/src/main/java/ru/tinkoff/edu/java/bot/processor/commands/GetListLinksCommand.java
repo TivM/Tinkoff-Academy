@@ -3,21 +3,21 @@ package ru.tinkoff.edu.java.bot.processor.commands;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.processor.message.MessageSender;
-import ru.tinkoff.edu.java.bot.dto.LinkResponse;
-import ru.tinkoff.edu.java.bot.service.LinkService;
-
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.bot.dto.LinkResponse;
+import ru.tinkoff.edu.java.bot.processor.message.MessageSenderImpl;
+import ru.tinkoff.edu.java.bot.service.LinkServiceImpl;
 
 @Component
 @RequiredArgsConstructor
 public class GetListLinksCommand implements CommandInterface {
 
-    private final MessageSender messageSender;
-    private final LinkService linkService;
+    private static final String LINKS_TEMPLATE = "links.ftl";
+    private final MessageSenderImpl messageSender;
+    private final LinkServiceImpl linkService;
 
     @Override
     public String command() {
@@ -32,11 +32,13 @@ public class GetListLinksCommand implements CommandInterface {
     @Override
     public SendMessage process(Update update) {
         List<LinkResponse> links = linkService.getAllLinks(update.message().chat().id());
-        if (links.size() == 0){
-           return messageSender.sendMessage(update,
-                   "You are not tracking links yet. Try using /track to start tracking links");
+        if (links.size() == 0) {
+            return messageSender.sendMessage(
+                update,
+                "You are not tracking links yet. Try using /track to start tracking links"
+            );
         }
-        return messageSender.sendTemplate(update, "links.ftl", Map.of("links", links));
+        return messageSender.sendTemplateUpdate(update, LINKS_TEMPLATE, Map.of("links", links));
     }
 
     @Override

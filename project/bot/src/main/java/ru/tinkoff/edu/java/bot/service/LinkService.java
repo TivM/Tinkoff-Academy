@@ -1,27 +1,15 @@
 package ru.tinkoff.edu.java.bot.service;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.dto.LinkResponse;
-
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import ru.tinkoff.edu.java.bot.dto.LinkResponse;
 
-@Component
-public class LinkService implements LinkServiceInterface{
+public interface LinkService {
+    List<LinkResponse> getAllLinks(Long tgChatId);
 
-    @Override
-    public List<LinkResponse> getAllLinks(Long tgChatId) {
-        return List.of();
-    }
+    Optional<LinkResponse> trackLink(Long tgChatId, URI link);
 
-    @Override
-    public Optional<LinkResponse> trackLink(Long tgChatId, String link) {
-        return Optional.empty();
-    }
+    Optional<LinkResponse> untrackLink(Long tgChatId, URI link);
 
-    @Override
-    public Optional<LinkResponse> untrackLink(Long tgChatId, String link) {
-        return Optional.empty();
-    }
 }

@@ -5,6 +5,11 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.util.List;
+import java.util.Optional;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -13,27 +18,29 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BotUpdatesDispatcherTest {
 
-    @Mock
-    private TelegramBot bot;
-
-    @Mock
-    private CommandProcessor commandProcessor;
-
-    @InjectMocks
-    BotUpdatesDispatcher botUpdatesDispatcher;
-
     @Captor
     ArgumentCaptor<SendMessage> sendMessageArgumentCaptor;
+    @Mock
+    private TelegramBot bot;
+    @Mock
+    private CommandProcessor commandProcessor;
+    @Mock
+    private MeterRegistry meterRegistry;
+
+    BotUpdatesDispatcher botUpdatesDispatcher;
+
+    @BeforeEach
+    void setUp() {
+        botUpdatesDispatcher = new BotUpdatesDispatcher(bot, commandProcessor, meterRegistry);
+    }
 
 
     @Test
@@ -51,13 +58,11 @@ public class BotUpdatesDispatcherTest {
         //then
         assertEquals(sendMessageArgumentCaptor.getValue().getParameters().get("text"), specialMessage);
 
-
-
     }
 
     // TODO: more tests
 
-    Update getUpdate(){
+    Update getUpdate() {
         //Update -> Message -> Chat -> Id
         Update update = new Update();
         Message message = new Message();
