@@ -5,11 +5,9 @@ import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import java.util.List;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import lombok.RequiredArgsConstructor;
-
+import java.util.List;
 
 public class BotUpdatesDispatcher implements UpdatesListener {
     private static final String MESSAGE = "I don't have this command. Use /help to see all my commands";
@@ -23,12 +21,11 @@ public class BotUpdatesDispatcher implements UpdatesListener {
     public BotUpdatesDispatcher(
         TelegramBot bot,
         CommandProcessor commandProcessor,
-        MeterRegistry meterRegistry)
-    {
+        MeterRegistry meterRegistry
+    ) {
         this.bot = bot;
         this.commandProcessor = commandProcessor;
-        this.numberOfProcessedMessages = meterRegistry.counter("number_of_processed_messages");;
-    }
+        this.numberOfProcessedMessages = meterRegistry.counter("number_of_processed_messages");}
 
     @Override
     public int process(List<Update> updates) {
