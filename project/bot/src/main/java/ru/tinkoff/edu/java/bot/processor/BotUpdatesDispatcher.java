@@ -25,7 +25,7 @@ public class BotUpdatesDispatcher implements UpdatesListener {
     ) {
         this.bot = bot;
         this.commandProcessor = commandProcessor;
-        this.numberOfProcessedMessages = meterRegistry.counter("number_of_processed_messages");}
+        this.numberOfProcessedMessages = meterRegistry.counter("number_of_processed_messages"); }
 
     @Override
     public int process(List<Update> updates) {
